@@ -1,4 +1,4 @@
-MSN avec Java et RMI
+MST (Messaging Service Transport)
 ====================
 
 Rendu
