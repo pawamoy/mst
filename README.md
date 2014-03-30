@@ -1,5 +1,5 @@
-MSN avec Java et RMI
-====================
+MST (Messaging Service Transport)
+=================================
 
 Rendu
 -----
@@ -8,7 +8,7 @@ Rendu
  * Rapport papier à mettre dans le casier de Sonntag
  * Rendre le code en même temps par mail (+ executable)
  * Fichiers dans un rep Nom1Nom2Nom3
-
+ 
 
 Programme
 ---------
@@ -59,7 +59,6 @@ Syntaxe envoi de message
 
 Exemple de message
 ------------------
-
 	Benoit : Hello
 	Benoit, Jerome : Quoi de 9 ?
 	Isaac : Bye !
@@ -69,7 +68,6 @@ Exemple de message
 
 Déroulement
 -----------
-
 On lance l'appli avec un identifiant.
 On entre des contacts (groupe) via une fenêtre graphique, ou bien via le fichier de config que l'on relit via une commande de l'appli.
 Si on reçoit un message d'un destinataire inconnu, on ajoute son adresse dans la table et on demande un identifiant.
