@@ -1,9 +1,11 @@
 import org.omg.CORBA.*;
 
-public ICommandImpl extends _ICommandImplBase
+public class ICommandImpl extends _ICommandImplBase
 {
-    boolean GetCommand(String cmd, String args)
+    public boolean SendCommand(String cmd, String args)
     {
         
+        
+        return false;
     }
 }
