@@ -1,4 +1,3 @@
-
 JAVA  = $(wildcard *.java)
 CLASS = $(JAVA:.java=.class)
 IDL   = $(wildcard *.idl)
