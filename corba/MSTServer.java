@@ -1,6 +1,6 @@
 import org.omg.CORBA.*;
 
-public class MSTClient
+public class MSTServer
 {
     public static void main (String[] args)
     {
@@ -16,7 +16,7 @@ public class MSTClient
         }
         catch (org.omg.CORBA.SystemException se)
         {
-            
+            System.err.println(se);
         }
     }
 }
