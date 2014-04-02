@@ -6,7 +6,7 @@ public class MSTServer
     {
         try
         {
-            ORB orb = orb.init(args, null);
+            ORB orb = ORB.init(args, null);
             
             ICommandImpl command = new ICommandImpl();
             String ior = orb.object_to_string(command);

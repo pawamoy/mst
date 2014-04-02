@@ -6,15 +6,12 @@ public class MSTClient
     {
         try
         {
-            ORB orb = orb.init(args, null);
+            ORB orb = ORB.init(args, null);
             
             org.omg.CORBA.Object obj = orb.string_to_object(args[0]);
-            
-            ICommandImpl command = new ICommandImpl();
-            String ior = orb.object_to_string(command);
-            System.out.println(ior);
-            
-            orb.run();
+            ICommand service = ICommandHelper.narrow(obj);
+
+            service.SendCommand("msg", "Jerome fumier");
         }
         catch (org.omg.CORBA.SystemException se)
         {
