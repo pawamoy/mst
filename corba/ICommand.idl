@@ -1,4 +1,4 @@
 interface ICommand
 {
-    string GetCommand();
+    boolean SendCommand(in string cmd, in string args);
 };
