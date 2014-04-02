@@ -4,6 +4,11 @@ public class MSTServer
 {
     public static void main (String[] args)
     {
+        InitCommandObject(args);
+    }
+    
+    public static void InitCommandObject(String[] args)
+    {
         try
         {
             ORB orb = ORB.init(args, null);
