@@ -1,0 +1,38 @@
+#/bin/bash
+
+help() {
+	echo "usage: $0 [help | mst | idl | class | clean]"
+}
+
+mst() {
+	idl
+	class
+}
+	
+idl() {
+	local idlfile
+	for idlfile in *.idl; do
+		echo idlj -fall -OldImplBase $idlfile
+		idlj -fall -OldImplBase $idlfile
+	done
+}
+	
+class() {
+	echo javac *.java
+	javac *.java
+}
+
+clean() {
+	/bin/rm *.class
+	/bin/rm *ImplBase.java
+	/bin/rm *Stub.java
+}
+
+case $1 in
+	idl) idl ;;
+	class) class ;;
+	mst) mst ;;
+	clean) clean ;;
+	help) help ;;
+	"") mst ;;
+esac
