@@ -12,6 +12,7 @@ public class MSTClient
             ICommand service = ICommandHelper.narrow(obj);
 
             service.SendCommand("msg", "Jerome fumier");
+            service.SendCommand("msg2", "Bande de batards");
         }
         catch (org.omg.CORBA.SystemException se)
         {
