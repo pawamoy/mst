@@ -1,0 +1,44 @@
+#/bin/bash
+
+help() {
+	echo "usage: $0 [help | mst | runserver | runclient | clean]"
+}
+
+mst() {
+	echo javac *.java
+	javac *.java
+	echo rmic Command
+	rmic Command
+}
+	
+runserver() {
+	echo -n "Kill processes & launch RMIRegistry... "
+	pkill rmiregistry
+	pkill java
+	sleep 1
+	rmiregistry &
+	echo "MSTServer is ready"
+	java MSTServer
+	pkill rmiregistry
+	pkill java
+	echo "MSTServer has ended"
+}
+
+runclient() {
+	java MSTClient ${1:-//localhost}
+}
+
+clean() {
+	rm -f *~ *.class
+}
+
+case $1 in
+	runserver) runserver ;;
+	runclient) runclient $2 ;;
+	mst) mst ;;
+	clean) clean ;;
+	help) help ;;
+	"") mst ;;
+	*) help ;;
+esac
+
