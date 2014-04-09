@@ -7,8 +7,8 @@ help() {
 mst() {
 	echo javac *.java
 	javac *.java
-	echo rmic Command
-	rmic Command
+	echo rmic Communication
+	rmic Communication
 }
 
 run() {

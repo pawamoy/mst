@@ -14,4 +14,14 @@ public class Contact
 		this.name = name;
 		ipAddress = address;
 	}
+	
+	public boolean HasName(String n)
+	{
+		return (name.compareToIgnoreCase(n) == 0);
+	}
+	
+	public boolean HasAddress(String a)
+	{
+		return (ipAddress.compareToIgnoreCase(a) == 0);
+	}
 }
