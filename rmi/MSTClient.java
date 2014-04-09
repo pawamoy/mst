@@ -35,7 +35,7 @@ public class MSTClient extends Thread
 		
         try
         {
-			comm = (CommInterface)Naming.lookup("rmi:"+host+"/command");
+			comm = (CommInterface)Naming.lookup("rmi:"+host+"/communication");
 		}
 		catch (MalformedURLException mue)
 		{
