@@ -1,15 +1,6 @@
 MST (Messaging Service Transport)
 =================================
 
-TODO
-----
-
-L'application lance un thread serveur et un thread client.
-Le client doit récupérer l'IOR de son serveur associé (izi).
-Mais le client doit aussi récupérer les IOR des serveurs de ses contacts (moins izi).
-
- * Trouver un moyen pour transmettre l'IOR serveur aux clients contacts au lancement
-
 Rendu
 -----
 

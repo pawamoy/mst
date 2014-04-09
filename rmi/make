@@ -10,31 +10,22 @@ mst() {
 	echo rmic Command
 	rmic Command
 }
-	
-runserver() {
-	echo -n "Kill processes & launch RMIRegistry... "
-	pkill rmiregistry
-	pkill java
-	sleep 1
-	rmiregistry &
-	echo "MSTServer is ready"
-	java MSTServer
-	pkill rmiregistry
-	pkill java
-	echo "MSTServer has ended"
-}
 
-runclient() {
-	java MSTClient ${1:-//localhost}
+run() {
+	echo "Setting up background service"
+	pkill rmiregistry; pkill java; sleep 0.5
+	rmiregistry & sleep 0.5
+	java MST
+	pkill rmiregistry; pkill java
 }
 
 clean() {
-	rm -f *~ *.class
+	echo /bin/rm -f *~ *.class
+	/bin/rm -f *~ *.class
 }
 
 case $1 in
-	runserver) runserver ;;
-	runclient) runclient $2 ;;
+	run) run ;;
 	mst) mst ;;
 	clean) clean ;;
 	help) help ;;

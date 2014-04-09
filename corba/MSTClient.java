@@ -1,3 +1,4 @@
+import org.omg.CosNaming.*;
 import org.omg.CORBA.*;
 
 public class MSTClient
