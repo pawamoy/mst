@@ -17,8 +17,8 @@ public class MSTServer extends Thread
     {
 		try
 		{
-            Command command = new Command();
-            Naming.rebind("command", command);
+            Communication comm = new Communication();
+            Naming.rebind("command", comm);
         }
         catch (RemoteException re)
         {
