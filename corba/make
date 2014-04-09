@@ -26,6 +26,9 @@ clean() {
 	/bin/rm *.class
 	/bin/rm *ImplBase.java
 	/bin/rm *Stub.java
+	/bin/rm *Helper.java
+	/bin/rm *Holder.java
+	/bin/rm *Operations.java
 }
 
 case $1 in
@@ -35,4 +38,5 @@ case $1 in
 	clean) clean ;;
 	help) help ;;
 	"") mst ;;
+	*) help ;;
 esac
