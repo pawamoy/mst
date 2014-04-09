@@ -1,6 +1,16 @@
 MST (Messaging Service Transport)
 =================================
 
+TODO
+----
+
+ * Classe de lecture des fichiers de configuration et du carnet d'adresses
+ * Classe d'interprétation des commandes/messages tappé(e)s par l'utilisateur
+ * Classe de stockage et accès aux données (contacts, etc...)
+ * Implémentation des fonctions demandées (voire paragraphe Commandes)
+ * (Interface graphique)
+ * Ecrire un rapport (diagrammes UML, etc...)
+
 Rendu
 -----
 
@@ -13,6 +23,9 @@ Rendu
 Programme
 ---------
 
+ * Compilation: ./make
+ * Lancement: ./make run
+ * usage make: make help|[mst]|run|clean
  * Faire une option --help
 
 
