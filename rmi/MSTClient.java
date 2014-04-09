@@ -1,16 +1,41 @@
 import java.rmi.* ; 
 import java.net.MalformedURLException ; 
 
-public class MSTClient
+public class MSTClient extends Thread
 {
-    public static void main (String[] args)
+	public MSTClient()
+	{
+		super();
+	}
+	
+	public void run()
+	{
+		ICommand local_command = GetICommand("//localhost");
+		
+		try
+		{
+			/*
+			 * Application client à foutre ici
+			 */
+			local_command.SendCommand("MSG1", "FUMIER");
+			local_command.SendCommand("MSG2", "TOM LA BRICOLE");
+			/*
+			 * Application client terminée
+			 */
+		}
+		catch (RemoteException re)
+		{
+			System.out.println(re);
+		}
+	}
+	
+    public static ICommand GetICommand(String host)
     {
+		ICommand cmd = null;
+		
         try
         {
-			ICommand command = (ICommand)Naming.lookup("rmi:"+args[0]+"/command");
-			
-			command.SendCommand("MSG1", "FUMIER");
-			command.SendCommand("MSG2", "TOM LA BRICOLE");
+			cmd = (ICommand)Naming.lookup("rmi:"+host+"/command");
 		}
 		catch (MalformedURLException mue)
 		{
@@ -24,5 +49,7 @@ public class MSTClient
 		{
 			System.out.println(re);
 		}
+		
+		return cmd;
     }
 }

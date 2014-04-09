@@ -1,14 +1,19 @@
 import java.net.*;
 import java.rmi.*;
 
-public class MSTServer
+public class MSTServer extends Thread
 {
-    public static void main (String[] args)
+	public MSTServer()
+	{
+		super();
+	}
+	
+    public void run()
     {
-        InitCommandObject(args);
+        InitCommandObject();
     }
     
-    public static void InitCommandObject(String args[])
+    public static void InitCommandObject()
     {
 		try
 		{
