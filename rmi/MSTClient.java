@@ -10,15 +10,15 @@ public class MSTClient extends Thread
 	
 	public void run()
 	{
-		ICommand local_command = GetICommand("//localhost");
+		CommInterface myComm = GetCommInterface("//localhost");
 		
 		try
 		{
 			/*
 			 * Application client à foutre ici
 			 */
-			local_command.SendCommand("MSG1", "FUMIER");
-			local_command.SendCommand("MSG2", "TOM LA BRICOLE");
+			myComm.SendCommand("MSG1", "FUMIER");
+			myComm.SendCommand("MSG2", "TOM LA BRICOLE");
 			/*
 			 * Application client terminée
 			 */
@@ -29,13 +29,13 @@ public class MSTClient extends Thread
 		}
 	}
 	
-    public static ICommand GetICommand(String host)
+    public static CommInterface GetCommInterface(String host)
     {
-		ICommand cmd = null;
+		CommInterface comm = null;
 		
         try
         {
-			cmd = (ICommand)Naming.lookup("rmi:"+host+"/command");
+			comm = (CommInterface)Naming.lookup("rmi:"+host+"/command");
 		}
 		catch (MalformedURLException mue)
 		{
@@ -50,6 +50,6 @@ public class MSTClient extends Thread
 			System.out.println(re);
 		}
 		
-		return cmd;
+		return comm;
     }
 }
