@@ -12,10 +12,11 @@ mst() {
 }
 
 run() {
+	[ -z "$1" ] && { echo "You must specify your name" >&2; exit 1; }
 	echo "Setting up background service"
 	pkill rmiregistry; pkill java; sleep 0.5
 	rmiregistry & sleep 0.5
-	java MST
+	java MST $1
 	pkill rmiregistry; pkill java
 }
 
@@ -25,7 +26,7 @@ clean() {
 }
 
 case $1 in
-	run) run ;;
+	run) run $2;;
 	mst) mst ;;
 	clean) clean ;;
 	help) help ;;

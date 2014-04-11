@@ -26,16 +26,21 @@ public abstract class Interpreter
 					// wizz
 						// arg1 = nom du contact
 						// arg2...N = message si contact trouvé
-					
-				// sinon comparer aux noms de groupes
-					// actualiser contact courant
-					// si args, envoyer msg
 				
-				// sinon comparer aux noms de contacts
-					// actualiser contact courant
-					// si args, envoyer msg
+				// sinon il s'agit d'un nom de contact / groupe
+				// effectuer le travail suivant dans le traitement de la commande
 				
-				// sinon équivalent à search / seek / who
+				/*
+				 * comparer aux noms de groupes
+				 * 		actualiser contact courant
+				 * 		si args, envoyer msg
+				 * 
+				 * sinon comparer aux noms de contacts
+				 * 		actualiser contact courant
+				 * 		si args, envoyer msg
+				 * 
+				 * sinon équivalent à search / seek / who
+				 */
 		
 		// sinon
 			
