@@ -3,9 +3,12 @@ import java.rmi.*;
 
 public class MSTServer extends Thread
 {
-	public MSTServer()
+	public static String myId;
+	
+	public MSTServer(String id)
 	{
 		super();
+		myId = id;
 	}
 	
     public void run()
@@ -18,15 +21,15 @@ public class MSTServer extends Thread
 		try
 		{
             Communication comm = new Communication();
-            Naming.rebind("communication", comm);
+            Naming.rebind(myId, comm);
         }
         catch (RemoteException re)
         {
-            System.out.println(re);
+            System.err.println("Error: " + re.getMessage());
         }
-        catch (MalformedURLException e)
+        catch (MalformedURLException mue)
         {
-            System.out.println(e);
+            System.err.println("Error: " + mue.getMessage());
         }
 	}
 }
