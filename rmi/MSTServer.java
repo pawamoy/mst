@@ -25,11 +25,11 @@ public class MSTServer extends Thread
         }
         catch (RemoteException re)
         {
-            System.err.println("Error: " + re.getMessage());
+            System.err.println("Error: server: " + re.getMessage());
         }
         catch (MalformedURLException mue)
         {
-            System.err.println("Error: " + mue.getMessage());
+            System.err.println("Error: server: " + mue.getMessage());
         }
 	}
 }

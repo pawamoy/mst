@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class MSTClient extends Thread
 {	
 	private AppData app;
+	private volatile boolean loop;
 	
 	public MSTClient(AppData a)
 	{
@@ -26,7 +27,9 @@ public class MSTClient extends Thread
 		String line = "";
 		Scanner sc = new Scanner(System.in);
 		
-		while (line.compareToIgnoreCase("EOF") != 0) {
+		loop = true;
+		
+		while (loop == true) {
 			System.out.print("> ");
 			line = sc.nextLine();
 			if ( !line.isEmpty() )
@@ -54,15 +57,15 @@ public class MSTClient extends Thread
 		}
 		catch (MalformedURLException mue)
 		{
-			System.err.println("Error: " + mue.getMessage());
+			System.err.println("Error: client: " + mue.getMessage());
 		}
 		catch (NotBoundException nbe)
 		{
-			System.err.println("Error: " + nbe.getMessage());
+			System.err.println("Error: client: " + nbe.getMessage());
 		}
 		catch (RemoteException re)
 		{
-			System.err.println("Error: " + re.getMessage());
+			System.err.println("Error: client: " + re.getMessage());
 		}
 		
 		return comm;
@@ -73,70 +76,105 @@ public class MSTClient extends Thread
 		switch(cmd.type)
 		{
 			case MESSAGE:
-				TreatMessage(cmd);
+				Message(cmd);
 				break;
 				
 			case EXIT:
-				
+				ExitClient();
 				break;
 				
 			case BROADCAST:
-				
+				Broadcast(cmd);
 				break;
 				
 			case SEARCH:
-				
+				//~ Search(cmd);
 				break;
 				
 			case WIZZ:
-				
+				//~ Wizz(cmd);
 				break;
 				
-			case REFRESH_CONFIG:
-				
+			case REFRESH:
+				//~ Refresh();
 				break;
 				
 			case HELP:
-				
+				//~ Help(cmd);
 				break;
 				
-			case CONTACT:
 			default:
+				System.err.println("Error: client: wrong command type (???)");
 				break;
 		}
 	}
 	
-	public void TreatMessage(Command cmd)
+	public void Message(Command cmd)
 	{
 		if (cmd.target.isEmpty())
 		{
-			if (app.current != null)
-				SendMessage(app.current, cmd.args);
-			else
-				System.err.println("Error: client: no current contact, abort");
-		}
-		else
-		{
-			Contact ctt = app.contacts.GetContact(cmd.target);
-			
-			if (ctt != null)
+			if (app.cur_con != null)
 			{
-				SendMessage(ctt, cmd.args);
+				SendMessage(app.cur_con, cmd.args);
+			}
+			else if (app.cur_grp != null)
+			{
+				ArrayList<Contact> group_ctt = app.cur_grp.GetAllContacts();
+						
+				for (int i=0; i<group_ctt.size(); i++)
+					SendMessage(group_ctt.get(i), cmd.args);
 			}
 			else
 			{
-				Group grp = app.contacts.GetGroup(cmd.target);
-				
-				if (grp != null)
-				{
-					ArrayList<Contact> group_ctt = grp.GetAllContacts();
+				System.err.println("Error: client: no previous communication");
+			}
+		}
+		else
+		{
+			if (cmd.target.compareTo("all") == 0)
+			{
+				for (int i=0; i<app.contacts.ContactSize(); i++)
+					SendMessage(app.contacts.GetContact(i), cmd.args);
 					
-					for (int i=0; i<group_ctt.size(); i++)
-						SendMessage(group_ctt.get(i), cmd.args);
+				app.cur_grp = (Group)app.contacts;
+				app.cur_con = null;
+			}
+			else if (cmd.target.compareTo("me") == 0)
+			{
+				SendMessage(app.me, cmd.args);
+				
+				app.cur_grp = null;
+				app.cur_con = app.me;
+			}
+			else
+			{
+				Contact ctt = app.contacts.GetContact(cmd.target);
+				
+				if (ctt != null)
+				{
+					SendMessage(ctt, cmd.args);
+					
+					app.cur_grp = null;
+					app.cur_con = ctt;
 				}
 				else
 				{
-					System.err.println("Error: client: unknown reference \""+cmd.target+"\"");
+					Group grp = app.contacts.GetGroup(cmd.target);
+					
+					if (grp != null)
+					{
+						ArrayList<Contact> group_ctt = grp.GetAllContacts();
+						
+						for (int i=0; i<group_ctt.size(); i++)
+							SendMessage(group_ctt.get(i), cmd.args);
+					
+						app.cur_con = null;
+						app.cur_grp = grp;
+					}
+					else
+					{
+						System.err.println("Error: client: unknown reference \""+cmd.target+"\"");
+					}
 				}
 			}
 		}
@@ -160,8 +198,19 @@ public class MSTClient extends Thread
 			}
 			catch (RemoteException re)
 			{
-				System.err.println("Error: " + re.getMessage());
+				System.err.println("Error: client: " + re.getMessage());
 			}
 		}
+	}
+	
+	public void ExitClient()
+	{
+		loop = false;
+	}
+	
+	public void Broadcast(Command cmd)
+	{
+		for (int i=0; i<app.contacts.ContactSize(); i++)
+			SendMessage(app.contacts.GetContact(i), cmd.args);
 	}
 }

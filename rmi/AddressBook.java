@@ -140,7 +140,8 @@ public abstract class AddressBook
 	public static boolean ValidHost(String h)
 	{
 		if (h.matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*.") ||
-			h.compareTo("?") == 0)
+			h.compareTo("?") == 0 ||
+			h.compareTo("localhost") == 0)
 			return true;
 		else
 			return false;

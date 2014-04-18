@@ -9,7 +9,13 @@ public abstract class Interpreter
 		if (s.startsWith(":"))
 		{
 			// analyser le premier mot (séparateur = espace, le mot peut être collé aux ':')
-			field = s.substring(1).split(" ");
+			if (s.substring(1).startsWith(" "))
+				field = s.substring(2).split(" ");
+			else
+				field = s.substring(1).split(" ");
+				
+			if (field.length == 0) return null;
+			
 			// comparer aux mots-clés de l'appli
 			if (field[0].compareTo("search") == 0 ||
 				field[0].compareTo("seek") == 0 ||
@@ -17,16 +23,12 @@ public abstract class Interpreter
 			{	// search = seek = who
 				// arg1 = nom à chercher
 				// arg2...N = message si contact trouvé
-				if (field.length > 2)
+				if (field.length > 1)
 				{
 					for (int i=2; i<field.length; i++)
 						args = args.concat(field[i]+" ");
 						
 					result = new Command(CommandType.SEARCH, field[1], args);
-				}
-				else if (field.length > 1)
-				{
-					result = new Command(CommandType.SEARCH, field[1]);
 				}
 				else
 				{
@@ -37,6 +39,8 @@ public abstract class Interpreter
 			else if (field[0].compareTo("bye") == 0 ||
 				field[0].compareTo("exit") == 0 ||
 				field[0].compareTo("end") == 0 ||
+				field[0].compareTo("quit") == 0 ||
+				field[0].compareTo("q") == 0 ||
 				field[0].compareTo("stop") == 0)
 			{	// bye = exit = end = stop
 				result = new Command(CommandType.EXIT);
@@ -46,10 +50,18 @@ public abstract class Interpreter
 				field[0].compareTo("all") == 0)
 			{	// broadcast = bc = all
 				// arg1...N = message à diffuser
-				for (int i=1; i<field.length; i++)
-					args = args.concat(field[i]+" ");
-					
-				result = new Command(CommandType.BROADCAST, "", args);
+				if (field.length > 1)
+				{
+					for (int i=1; i<field.length; i++)
+						args = args.concat(field[i]+" ");
+						
+					result = new Command(CommandType.BROADCAST, "", args);
+				}
+				else
+				{
+					System.err.println("Error: interpreter: command broadcast needs text to be send");
+					result = null;
+				}
 			}
 			else if (field[0].compareTo("help") == 0)
 			{	// help
@@ -60,7 +72,7 @@ public abstract class Interpreter
 			}
 			else if (field[0].compareTo("refresh") == 0)
 			{	// refresh
-				result = new Command(CommandType.REFRESH_CONFIG);
+				result = new Command(CommandType.REFRESH);
 			}
 			else if (field[0].compareTo("refresh") == 0)
 			{	// wizz
@@ -72,16 +84,26 @@ public abstract class Interpreter
 			}
 			else
 			{	// message pour contact / groupe
-				if (field.length > 1)
+				if (AddressBook.ValidName(field[0]))
 				{
-					for (int i=1; i<field.length; i++)
-						args = args.concat(field[i]+" ");
+					if (field.length > 1)
+					{
+						for (int i=1; i<field.length; i++)
+							args = args.concat(field[i]+" ");
+							
+						result = new Command(field[0], args);
+					}
+					else
+					{
+						if ( !field[0].isEmpty() )
+							System.err.println("Error: interpreter: message function needs text to be send");
 						
-					result = new Command(field[0], args);
+						result = null;
+					}
 				}
 				else
 				{
-					System.err.println("Error: interpreter: message function needs text to be send");
+					System.err.println("Error: interpreter: wrong command, please type :help");
 					result = null;
 				}
 			}
@@ -107,7 +129,7 @@ public abstract class Interpreter
 				break;
 				
 			case EXIT:
-				result = "exit";
+				result = ":exit";
 				break;
 				
 			case BROADCAST:
@@ -126,7 +148,7 @@ public abstract class Interpreter
 					result = result.concat(" "+c.target);
 				break;
 				
-			case REFRESH_CONFIG:
+			case REFRESH:
 				result = ":refresh";
 				break;
 				
@@ -136,7 +158,6 @@ public abstract class Interpreter
 					result = result.concat(" "+c.target);
 				break;
 				
-			case CONTACT:
 			default:
 				break;
 		}

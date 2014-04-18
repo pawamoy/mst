@@ -24,26 +24,28 @@ public class MST
 		app.me = new Contact(args[0], "localhost"/*, on peut ajouter le port ici */);
 				
 		// simple affichage des contacts et des groupes
-		//~ RootGroup all = app.contacts;
-		//~ 
-		//~ int cs = all.ContactSize();
-		//~ int gs = all.GroupSize();
-		//~ 
-		//~ System.out.println("");
-		//~ 
-		//~ System.out.println(cs+" contacts:");
-		//~ for (int i=0; i<cs; i++)
-		//~ {
-			//~ System.out.println("\t"+all.GetContact(i).name+"\t("+all.GetContact(i).ipAddress+")");
-		//~ }
-		//~ 
-		//~ System.out.println(gs+" groups:");
-		//~ for (int i=0; i<gs; i++)
-		//~ {
-			//~ System.out.println("\t"+all.GetGroup(i).name);
-		//~ }
-		//~ 
-		//~ System.out.println("");
+		/*
+		RootGroup all = app.contacts;
+		
+		int cs = all.ContactSize();
+		int gs = all.GroupSize();
+		
+		System.out.println("");
+		
+		System.out.println(cs+" contacts:");
+		for (int i=0; i<cs; i++)
+		{
+			System.out.println("\t"+all.GetContact(i).name+"\t("+all.GetContact(i).ipAddress+")");
+		}
+		
+		System.out.println(gs+" groups:");
+		for (int i=0; i<gs; i++)
+		{
+			System.out.println("\t"+all.GetGroup(i).name);
+		}
+		
+		System.out.println("");
+		*/
 		
 		/** test répercussions des modifications de groupes */
 		/****************************************************/
@@ -107,16 +109,12 @@ public class MST
 		System.out.println("Starting local client");
 		local_client.start();
 		
-		// trouver un moyen d'arrêter le server lorsque le client s'arrête
-		// (d'ailleurs le client ne s'arrête pas en sortant de la boucle, wtf...)
-		//~ try
-		//~ {
-			//~ local_client.join();
-			//~ local_server.join(1000);
-		//~ }
-		//~ catch (InterruptedException ie)
-		//~ {
-			//~ Thread.currentThread().interrupt();
-		//~ }
+		try
+		{
+			local_client.join();
+		}
+		catch (InterruptedException ie) { }
+		
+		System.exit(0);
 	}
 }
