@@ -8,6 +8,9 @@ public abstract class AddressBook
 	{
 		Group all_contacts = new Group("all");
 		
+		Contact ct = null;
+		Group gt = null;
+		
 		ArrayList<String> groups_id = new ArrayList<String>();
 		ArrayList<String> contacts_id = new ArrayList<String>();
 		
@@ -46,23 +49,24 @@ public abstract class AddressBook
 				{					
 					if ( ValidHost(id[0]) )
 					{ // il s'agit d'une adresse, donc on définit un contact
-						Contact ct = new Contact(field[0], id[0]);
-						
-						// si on permet plusieurs "host" pour un contact
-						// ajouter une méthode AddHost pour Contact
-						/*
-						for (int i=1; i<id.length; i++)
+						if (id.length > 1)
 						{
-							if ( ValidHost(id[i]) )
+							if (ValidPort(id[1]))
 							{
-								ct.AxddHost(id[i]);
+								ct = new Contact(field[0], id[0], id[1]);
 							}
 							else
 							{
-								System.err.println("Error: addressbook: line "+count+": \""+id[i]+"\" host is unvalid");
+								System.err.print("Error: addressbook: line "+count+": port \""+id[1]+"\" is unvalid. ");
+								System.err.println("Default value will be used");
+								
+								ct = new Contact(field[0], id[0]);
 							}
 						}
-						*/
+						else
+						{
+							ct = new Contact(field[0], id[0]);
+						}
 						
 						// on ajoute le nouveau contact aux listes temporaires
 						contacts_id.add(field[0]);
@@ -70,7 +74,7 @@ public abstract class AddressBook
 					}
 					else
 					{ // on n'a pas trouvé d'host valide, on définit sûrement un groupe
-						Group gt = new Group(field[0]);
+						gt = new Group(field[0]);
 						
 						for (int i=0; i<id.length; i++)
 						{
@@ -90,7 +94,7 @@ public abstract class AddressBook
 								}
 								else
 								{ // ni contact ni groupe -> erreur
-									System.err.println("Error: addressbook: line "+count+": unknown reference \""+id[0]+"\"");
+									System.err.println("Error: addressbook: line "+count+": unknown reference \""+id[i]+"\"");
 								}
 							}
 						}
@@ -136,11 +140,14 @@ public abstract class AddressBook
 	public static boolean ValidHost(String h)
 	{
 		if (h.matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*.") ||
-			h.compareTo("?") == 0 ||
-			h.matches("0x[0-9]*") ||
-			h.matches("[0-9]*"))
+			h.compareTo("?") == 0)
 			return true;
 		else
 			return false;
+	}
+	
+	public static boolean ValidPort(String p)
+	{
+		return p.matches("[0-9]*");
 	}
 }

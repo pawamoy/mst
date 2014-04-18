@@ -3,18 +3,15 @@ import java.net.MalformedURLException;
 import java.util.Scanner;
 
 public class MSTClient extends Thread
-{
-	public static String myId;
-	
-	public MSTClient(String id)
+{	
+	public MSTClient()
 	{
 		super();
-		myId = id;
 	}
 	
 	public void run()
 	{
-		CommInterface myComm = GetCommInterface("//localhost", myId);
+		CommInterface myComm = GetCommInterface("//localhost", "my,own,comm");
 		
 		try
 		{

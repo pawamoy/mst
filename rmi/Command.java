@@ -1,8 +1,7 @@
 public class Command
 {
 	public CommandType type;
-	public Contact contact;
-	public Group group;
+	public String target;
 	public String args;
 	
 	private CommandType default_type = CommandType.MESSAGE;
@@ -10,69 +9,42 @@ public class Command
 	public Command()
 	{
 		type = default_type;
+		target = "";
 		args = "";
-		contact = null;
-		group = null;
 	}
 	
 	public Command(CommandType t)
 	{
 		type = t;
+		target = "";
 		args = "";
-		contact = null;
-		group = null;
 	}
 	
-	public Command(String args)
+	public Command(String target)
 	{
 		type = default_type;
+		this.target = target;
+		args = "";
+	}
+	
+	public Command(String target, String args)
+	{
+		type = default_type;
+		this.target = target;
 		this.args = args;
-		contact = null;
-		group = null;
 	}
 	
-	public Command(Contact contact)
-	{
-		type = default_type;
-		args = "";
-		group = null;
-		this.contact = contact;
-	}
-	
-	public Command(Group group)
-	{
-		type = default_type;
-		args = "";
-		contact = null;
-		this.group = group;
-	}
-	
-	public Command(CommandType t, String args)
+	public Command(CommandType t, String target)
 	{
 		type = t;
-		this.args = args;
-		contact = null;
-		group = null;
-	}
-	
-	public Command(CommandType t, Contact contact)
-	{
-		type = t;
+		this.target = target;
 		args = "";
-		this.contact = contact;
 	}
 	
-	public Command(Contact contact, String args)
-	{
-		type = default_type;
-		this.args = args;
-		this.contact = contact;
-	}
-	
-	public Command(CommandType t, Contact contact, String args)
+	public Command(CommandType t, String target, String args)
 	{
 		type = t;
+		this.target = target;
 		this.args = args;
-		this.contact = contact;
 	}
 }
