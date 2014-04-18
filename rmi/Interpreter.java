@@ -65,18 +65,10 @@ public abstract class Interpreter
 			else if (field[0].compareTo("refresh") == 0)
 			{	// wizz
 				// arg1 = nom du contact
-				// arg2...N = message si contact trouvé
-				if (field.length > 1)
-				{
-					for (int i=2; i<field.length; i++)
-						args = args.concat(field[i]+" ");
-						
-					result = new Command(CommandType.WIZZ, field[1], args);
-				}
+				if (field.length > 1)			
+					result = new Command(CommandType.WIZZ, field[1]);
 				else
-				{
 					result = new Command(CommandType.WIZZ);
-				}
 			}
 			else
 			{	// message pour contact / groupe
@@ -104,28 +96,58 @@ public abstract class Interpreter
 	
 	public static String CommandToString(Command c)
 	{
-		return "";
+		String result = "";
+		
+		switch(c.type)
+		{
+			case MESSAGE:
+				if ( !c.target.isEmpty() )
+					result = result.concat(":"+c.target+" ");
+				result = result.concat(c.args);
+				break;
+				
+			case EXIT:
+				result = "exit";
+				break;
+				
+			case BROADCAST:
+				result = result.concat(":broadcast "+c.args);
+				break;
+				
+			case SEARCH:
+				result = result.concat(":search "+c.target);
+				if ( !c.args.isEmpty() )
+					result = result.concat(" "+c.args);
+				break;
+				
+			case WIZZ:
+				result = ":wizz";
+				if ( !c.target.isEmpty() )
+					result = result.concat(" "+c.target);
+				break;
+				
+			case REFRESH_CONFIG:
+				result = ":refresh";
+				break;
+				
+			case HELP:
+				result = ":help";
+				if ( !c.target.isEmpty() )
+					result = result.concat(" "+c.target);
+				break;
+				
+			case CONTACT:
+			default:
+				break;
+		}
+		
+		return result;
 	}
 }
 
 /*
  * TODO: autoriser les combinaison de commande:
- * :wizz    [:CONTACT] [msg]
- * :CONTACT [:wizz]    [msg]
- * :wizz    [:bc]      [msg]
- * :bc      [:wizz]    [msg]
- */
- 
-/*
- * TODO: faire une liste de tous les usages possibles
- * (toutes les commandes et combinaisons de commandes possibles)
- */
- 
-/*
- * NOTE: l'identifiant 'all' est réservé par l'application
- * il désigne TOUS les contacts
- * c'est en fait le groupe racine contenant tous les groupes et contacts
- * de l'utilisateur
+ * :bc      [:wizz]    = :bc :wizz
  */
  
 /*
