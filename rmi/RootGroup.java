@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class RootGroup
 {
-	private static RootGroup instance = null;
+	protected static RootGroup instance = null;
 	
 	public ArrayList<Group> groups;
 	public ArrayList<Contact> contacts;

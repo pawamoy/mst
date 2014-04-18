@@ -21,9 +21,9 @@ public class MST
 		
 		// instanciation des données de l'appli (+ lecture carnet d'adresses)
 		AppData app = AppData.getInstance();
+		app.me = new Contact(args[0], "//localhost"/*, on peut ajouter le port ici */);;
+		
 		RootGroup all = app.contacts;
-		// ajout de soi-même ?
-		all.Add(new Contact(args[0], "//localhost"));
 		
 		// simple affichage des contacts et des groupes
 		int cs = all.ContactSize();
@@ -89,8 +89,8 @@ public class MST
 		// lancement des threads client et server
 		int sleep_msec = 1000;
 		
-		local_server = new MSTServer();
-		local_client = new MSTClient();
+		local_server = new MSTServer(app);
+		local_client = new MSTClient(app);
 		
 		local_server.start();
 		System.out.println("Local server will be ready in "+sleep_msec/1000+"second(s)...");

@@ -12,10 +12,10 @@ public class Group extends RootGroup
 	}
 	
 	// redéfinition
-	//public static RootGroup getInstance()
-	//{
-	//	return super.getInstance();
-	//}
+	public static RootGroup getInstance()
+	{
+		return instance;
+	}
 	
 	// redéfinition
 	public void Del(Contact c)

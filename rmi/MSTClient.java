@@ -4,14 +4,18 @@ import java.util.Scanner;
 
 public class MSTClient extends Thread
 {	
-	public MSTClient()
+	private AppData app;
+	
+	public MSTClient(AppData a)
 	{
 		super();
+		app = a;
 	}
 	
 	public void run()
 	{
-		CommInterface myComm = GetCommInterface("//localhost", "my,own,comm");
+		// mon interface de communication
+		app.me.comm = GetCommInterface(app.me.ipAddress, app.me.port);
 		
 		try
 		{
@@ -25,7 +29,7 @@ public class MSTClient extends Thread
 			while (line.compareToIgnoreCase("EOF") != 0) {
 				System.out.print("> ");
 				line = sc.nextLine();
-				myComm.SendCommand("MSG", line);
+				app.me.comm.SendCommand("MSG", line);
 			}
 			
 			/*
@@ -38,13 +42,13 @@ public class MSTClient extends Thread
 		}
 	}
 	
-    public static CommInterface GetCommInterface(String host, String id)
+    public static CommInterface GetCommInterface(String host, int port)
     {
 		CommInterface comm = null;
 		
         try
         {
-			comm = (CommInterface)Naming.lookup("rmi:"+host+"/"+id);
+			comm = (CommInterface)Naming.lookup("rmi:"+host+":"+port+"/my,own,comm");
 		}
 		catch (MalformedURLException mue)
 		{
