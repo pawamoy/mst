@@ -21,6 +21,8 @@ public class MST
 		
 		// lecture du carnet d'adresses
 		Group all = AddressBook.ReadContacts("appdata/addressbook");
+		// ajout de soi-même ?
+		all.Add(new Contact(args[0], "//localhost"));
 		
 		// simple affichage des contacts et des groupes
 		int cs = all.ContactSize();
@@ -42,11 +44,46 @@ public class MST
 		
 		System.out.println("");
 		
+		/** test répercussions des modifications de groupes */
+		/****************************************************/
+		/*
+			Group isaac = all.GetGroup("Isaac");
+			Contact jerome = isaac.GetContact("Jerome");
+			Group jacob = all.GetGroup("Jacob");
+			Group jacobisaac = jacob.GetGroup("Isaac");
+			
+			// contenu avant suppression
+			System.out.println("");
+			System.out.println("Contenu Isaac avant suppression:");
+			for (int i=0; i<isaac.ContactSize(); i++)
+				System.out.println("\t"+isaac.GetContact(i).name);
+				
+			System.out.println("Contenu Jacob.Isaac avant suppression:");
+			for (int i=0; i<jacobisaac.ContactSize(); i++)
+				System.out.println("\t"+jacobisaac.GetContact(i).name);
+				
+			// suppression d'un contact de Isaac (Jerome)
+			System.out.println("Suppression de Jerome dans Isaac");
+			isaac.Del(jerome);
+			
+			// contenu après suppression
+			System.out.println("");
+			System.out.println("Contenu Isaac après suppression:");
+			for (int i=0; i<isaac.ContactSize(); i++)
+				System.out.println("\t"+isaac.GetContact(i).name);
+				
+			System.out.println("Contenu Jacob.Isaac après suppression:");
+			for (int i=0; i<jacobisaac.ContactSize(); i++)
+				System.out.println("\t"+jacobisaac.GetContact(i).name);
+		*/
+		/** fin test répercussion ***************************/
+		/****************************************************/
+		
 		// lancement des threads client et server
 		int sleep_msec = 1000;
 		
-		local_server = new MSTServer(args[0]);
-		local_client = new MSTClient(args[0]);
+		local_server = new MSTServer();
+		local_client = new MSTClient();
 		
 		local_server.start();
 		System.out.println("Local server will be ready in "+sleep_msec/1000+"second(s)...");

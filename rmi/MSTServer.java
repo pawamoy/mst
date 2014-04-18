@@ -3,12 +3,9 @@ import java.rmi.*;
 
 public class MSTServer extends Thread
 {
-	public static String myId;
-	
-	public MSTServer(String id)
+	public MSTServer()
 	{
 		super();
-		myId = id;
 	}
 	
     public void run()
@@ -21,7 +18,7 @@ public class MSTServer extends Thread
 		try
 		{
             Communication comm = new Communication();
-            Naming.rebind(myId, comm);
+            Naming.rebind("my,own,comm", comm);
         }
         catch (RemoteException re)
         {

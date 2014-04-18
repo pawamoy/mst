@@ -38,16 +38,29 @@ public class Group
 		return groups.get(index);
 	}
 	
-	/*public Group GetGroup(Group group)
+	/** Tree style !! (disabled) **/
+	// recherche "récursive" d'un groupe via un nom
+	public Group GetGroup(String name)
 	{
-		int index = groups.indexOf(group);
+		Group g;
 		
-		if (index != -1)
-			groups.get(index);
-		else
-			return null;
+		for (int i=0; i<GroupSize(); i++)
+		{
+			g = GetGroup(i);
+			
+			if (g.HasName(name))
+				return g;
+		}
+		
+		//~ for (int i=0; i<GroupSize(); i++)
+		//~ {
+			//~ g = GetGroup(i).GetGroup(name);
+			//~ if (g != null)
+				//~ return g;
+		//~ }
+		
+		return null;
 	}
-	*/
 	
 	/** Tree style !! (disabled) **/
 	// index valable entre 0 et TotalSize() (parcours "récursif" en profondeur)
@@ -100,17 +113,6 @@ public class Group
 		return null;
 	}
 	
-	/*public Contact GetContact(Contact contact)
-	{
-		int index = contacts.indexOf(contact);
-		
-		if (index != -1)
-			contacts.get(index);
-		else
-			return null;
-	}
-	*/
-	
 	public boolean Contains(Contact c)
 	{
 		return contacts.contains(c);
@@ -143,5 +145,10 @@ public class Group
 		}
 		
 		return total;
-	} 
+	}
+	
+	public boolean HasName(String n)
+	{
+		return (name.compareToIgnoreCase(n) == 0);
+	}
 }
