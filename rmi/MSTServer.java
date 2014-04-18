@@ -3,9 +3,12 @@ import java.rmi.*;
 
 public class MSTServer extends Thread
 {
-	public MSTServer()
+	private AppData app;
+	
+	public MSTServer(AppData a)
 	{
 		super();
+		app = a;
 	}
 	
     public void run()

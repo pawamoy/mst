@@ -3,6 +3,7 @@ public class Contact
 	public String name;
 	public String ipAddress;
 	public int port;
+	public CommInterface comm = null;
 	
 	private int default_port = 1099;
 	

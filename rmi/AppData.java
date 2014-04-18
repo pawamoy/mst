@@ -2,7 +2,8 @@ public class AppData
 {
 	private static AppData instance = null;
 	public static RootGroup contacts = null;
-	public static Contact current_contact = null;
+	public static Contact current = null;
+	public static Contact me = null;
 	
 	protected AppData()
 	{
