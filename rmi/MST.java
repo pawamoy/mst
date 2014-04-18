@@ -19,8 +19,9 @@ public class MST
 			System.exit(-1);
 		}
 		
-		// lecture du carnet d'adresses
-		RootGroup all = AddressBook.ReadContacts("appdata/addressbook");
+		// instanciation des données de l'appli (+ lecture carnet d'adresses)
+		AppData app = AppData.getInstance();
+		RootGroup all = app.contacts;
 		// ajout de soi-même ?
 		all.Add(new Contact(args[0], "//localhost"));
 		
