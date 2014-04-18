@@ -6,7 +6,7 @@ public class AppData
 	
 	protected AppData()
 	{
-        contacts = RootGroup.getInstance();
+        contacts = AddressBook.ReadContacts("appdata/addressbook");
 	}
     
 	public static AppData getInstance()
