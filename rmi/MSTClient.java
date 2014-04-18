@@ -50,7 +50,7 @@ public class MSTClient extends Thread
 		
         try
         {
-			comm = (CommInterface)Naming.lookup("rmi://"+host+":"+port+"/my,own,comm");
+			comm = (CommInterface)Naming.lookup("rmi://"+host/*+":"+port*/+"/my,own,comm");
 		}
 		catch (MalformedURLException mue)
 		{
