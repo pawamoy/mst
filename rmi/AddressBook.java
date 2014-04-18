@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public abstract class AddressBook
 {
-	public static Group ReadContacts(String filename)
+	public static RootGroup ReadContacts(String filename)
 	{
-		Group all_contacts = new Group("all");
+		RootGroup all_contacts = RootGroup.getInstance();
 		
 		Contact ct = null;
 		Group gt = null;

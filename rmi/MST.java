@@ -20,7 +20,7 @@ public class MST
 		}
 		
 		// lecture du carnet d'adresses
-		Group all = AddressBook.ReadContacts("appdata/addressbook");
+		RootGroup all = AddressBook.ReadContacts("appdata/addressbook");
 		// ajout de soi-même ?
 		all.Add(new Contact(args[0], "//localhost"));
 		
@@ -66,6 +66,10 @@ public class MST
 			System.out.println("Suppression de Jerome dans Isaac");
 			isaac.Del(jerome);
 			
+			// suppression d'un contact racine (Benoit)
+			System.out.println("Suppression de Benoit");
+			all.Del(all.GetContact("Benoit"));
+			
 			// contenu après suppression
 			System.out.println("");
 			System.out.println("Contenu Isaac après suppression:");
@@ -75,6 +79,8 @@ public class MST
 			System.out.println("Contenu Jacob.Isaac après suppression:");
 			for (int i=0; i<jacobisaac.ContactSize(); i++)
 				System.out.println("\t"+jacobisaac.GetContact(i).name);
+			
+			System.out.println("");
 		*/
 		/** fin test répercussion ***************************/
 		/****************************************************/
