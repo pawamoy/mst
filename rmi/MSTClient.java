@@ -50,19 +50,19 @@ public class MSTClient extends Thread
 		
         try
         {
-			comm = (CommInterface)Naming.lookup("rmi://"+host/*+":"+port*/+"/my,own,comm");
+			comm = (CommInterface)Naming.lookup("rmi://"+host+":"+port+"/my,own,comm");
 		}
 		catch (MalformedURLException mue)
 		{
-			System.err.println("Errora: " + mue.getMessage());
+			System.err.println("Error: " + mue.getMessage());
 		}
 		catch (NotBoundException nbe)
 		{
-			System.err.println("Errorb: " + nbe.getMessage());
+			System.err.println("Error: " + nbe.getMessage());
 		}
 		catch (RemoteException re)
 		{
-			System.err.println("Errorc: " + re.getMessage());
+			System.err.println("Error: " + re.getMessage());
 		}
 		
 		return comm;

@@ -70,14 +70,6 @@ public abstract class Interpreter
 				else
 					result = new Command(CommandType.WIZZ);
 			}
-			else if (field[0].compareTo("me") == 0)
-			{	// message à moi-même
-				// arg1..N =  msg
-				for (int i=1; i<field.length; i++)
-					args = args.concat(field[i]+" ");
-					
-				result = new Command("me", args);
-			}
 			else
 			{	// message pour contact / groupe
 				if (field.length > 1)
