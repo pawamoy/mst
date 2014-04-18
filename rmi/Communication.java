@@ -5,9 +5,9 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 {
 	public Communication() throws RemoteException {}
 	
-	public boolean SendCommand(String cmd, String args) throws RemoteException
+	public boolean Message(String msg) throws RemoteException
 	{
-		System.out.println(cmd + ": " + args);
+		System.out.println(msg);
 		return false;
 	}
 }

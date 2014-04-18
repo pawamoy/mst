@@ -21,29 +21,29 @@ public class MST
 		
 		// instanciation des données de l'appli (+ lecture carnet d'adresses)
 		AppData app = AppData.getInstance();
-		app.me = new Contact(args[0], "//localhost"/*, on peut ajouter le port ici */);;
-		
-		RootGroup all = app.contacts;
-		
+		app.me = new Contact(args[0], "localhost"/*, on peut ajouter le port ici */);
+				
 		// simple affichage des contacts et des groupes
-		int cs = all.ContactSize();
-		int gs = all.GroupSize();
-		
-		System.out.println("");
-		
-		System.out.println(cs+" contacts:");
-		for (int i=0; i<cs; i++)
-		{
-			System.out.println("\t"+all.GetContact(i).name+"\t("+all.GetContact(i).ipAddress+")");
-		}
-		
-		System.out.println(gs+" groups:");
-		for (int i=0; i<gs; i++)
-		{
-			System.out.println("\t"+all.GetGroup(i).name);
-		}
-		
-		System.out.println("");
+		//~ RootGroup all = app.contacts;
+		//~ 
+		//~ int cs = all.ContactSize();
+		//~ int gs = all.GroupSize();
+		//~ 
+		//~ System.out.println("");
+		//~ 
+		//~ System.out.println(cs+" contacts:");
+		//~ for (int i=0; i<cs; i++)
+		//~ {
+			//~ System.out.println("\t"+all.GetContact(i).name+"\t("+all.GetContact(i).ipAddress+")");
+		//~ }
+		//~ 
+		//~ System.out.println(gs+" groups:");
+		//~ for (int i=0; i<gs; i++)
+		//~ {
+			//~ System.out.println("\t"+all.GetGroup(i).name);
+		//~ }
+		//~ 
+		//~ System.out.println("");
 		
 		/** test répercussions des modifications de groupes */
 		/****************************************************/
