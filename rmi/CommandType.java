@@ -5,7 +5,6 @@ public enum CommandType
 	BROADCAST,
 	SEARCH,
 	WIZZ,
-	REFRESH_CONFIG,
-	HELP,
-	CONTACT
+	REFRESH,
+	HELP
 }

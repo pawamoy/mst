@@ -4,17 +4,23 @@ MST (Messaging Service Transport)
 TODO
 ----
 
- * Classe de lecture des fichiers de configuration et du carnet d'adresses
- * Classe d'interprétation des commandes/messages tappé(e)s par l'utilisateur
- * Classe de stockage et accès aux données (contacts, etc...)
+ * Ajouter la lecture des commandes add, delete, list, modify (contacts)
+ * Ajouter un timeout pour la récupération d'une interface via rmi (ou lancer via un thread): on veut pas bloquer le prog
+ * Fonction exit: penser à actualiser le fichier d'adresses (si on output dans l'ordre, les dépendances sont respectées)
+ * Interpreter: autoriser les commentaires avec '/'
+ * Interpreter: autoriser les listes de contacts (séparateur ',' sans espace). Cela demande un traitement supplémentaire de Command.target dans les fonctions
  * Implémentation des fonctions demandées (voire paragraphe Commandes)
  * (Interface graphique)
  * Ecrire un rapport (diagrammes UML, etc...)
+ * Faire une option --help
+ * Changer adresse d'un contact en '?' si erreur
+ * Supprimer groupes vides ? (pendant l'exécution ? à l'arrêt ?)
+ * A l'ajout de contacts/groupes, vérifier qu'on leur donne pas un mot clé comme nom (me/all/quit/etc...), et qu'ils commencent pas par un espace
 
 Rendu
 -----
 
- * A rendre avant le 21 avril
+ * A rendre avant le 28 avril
  * Rapport papier à mettre dans le casier de Sonntag
  * Rendre le code en même temps par mail (+ executable)
  * Fichiers dans un rep Nom1Nom2Nom3
@@ -26,7 +32,7 @@ Programme
  * Compilation: ./make
  * Lancement: ./make run
  * usage make: make help|[mst]|run|clean
- * Faire une option --help
+ * Pensez à alias m='./make' pour vous simplifier la vie
 
 
 Syntaxe fichier de config
@@ -51,7 +57,7 @@ Syntaxe fichier de config
 
 Exemple fichier config
 ----------------------
-	Benoit : 212.85.150.133,0x20000000,1
+	Benoit : 212.85.150.133,1099
 	Jerome : ?
 	Isaac : Benoit, Jerome
 
@@ -67,16 +73,16 @@ Syntaxe envoi de message
 					
 	IDENTIFIER		->	[a-zA-Z_]+
 
-	COMMAND			-> 'bye'
+	COMMAND			-> 'bye' ...
 
 
 Exemple de message
 ------------------
-	Benoit : Hello
-	Benoit, Jerome : Quoi de 9 ?
-	Isaac : Bye !
-	: A bientot.
-	bye
+	:Benoit Hello
+	: Benoit,Jerome Quoi de 9 ?
+	:Isaac Bye !
+	A bientot.
+	:bye
 
 
 Déroulement
@@ -94,9 +100,13 @@ Commandes
 ---------
 (+ bouton de l'interface)
 
- * bye
- * broadcast
- * seekfriend
- * wizz
- * confrefresh
- * help
+ * bye = end = stop = quit = exit
+ * broadcast = bc = all MSG
+ * search = seek = who [NOM]
+ * wizz [CTT/GRP]
+ * refresh
+ * help [CMD]
+ * add NOM [ADR] [PORT]
+ * delete = del [NOM/ADR]
+ * list [GRP]
+ * modify = mod [CTT/GRP]
