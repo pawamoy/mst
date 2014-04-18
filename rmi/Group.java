@@ -30,16 +30,16 @@ public class Group extends RootGroup
 	}
 	
 	// redéfinition récursive
-	public boolean Contains(Contact c)
-	{
-		return contacts.contains(c);
-	}
+	//~ public boolean Contains(Contact c)
+	//~ {
+		//~ return contacts.contains(c);
+	//~ }
 	
 	// redéfinition récursive
-	public boolean Contains(Group g)
-	{
-		return groups.contains(g);
-	}
+	//~ public boolean Contains(Group g)
+	//~ {
+		//~ return groups.contains(g);
+	//~ }
 	
 	/* méthodes ajoutées */
 
@@ -60,6 +60,21 @@ public class Group extends RootGroup
 	{
 		return (name.compareToIgnoreCase(n) == 0);
 	}
-
-	// ajouter un itérateur pour parcourir récursivement les contacts
+	
+	public ArrayList<Contact> GetAllContacts()
+	{
+		ArrayList<Contact> result = new ArrayList<Contact>();
+		RecGetAll(result);
+		return result;
+	}
+	
+	private void RecGetAll(ArrayList<Contact> array)
+	{
+		for (int i=0; i<ContactSize(); i++)
+			if ( !array.contains(GetContact(i)) )
+				array.add(GetContact(i));
+		
+		for (int i=0; i<GroupSize(); i++)
+			GetGroup(i).RecGetAll(array);
+	}
 }
