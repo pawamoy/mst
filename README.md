@@ -15,8 +15,9 @@ TODO
  * Faire une option --help
  * Changer adresse d'un contact en '?' si erreur
  * Supprimer groupes vides ? (pendant l'exécution ? à l'arrêt ?)
- * A l'ajout de contacts/groupes, vérifier qu'on leur donne pas un mot clé comme nom (me/all/quit/etc...), et qu'ils commencent pas par un espace
- * Pouvoir récupérer l'adresse d'un contact inconnu s'il nous envoie un msg (wtf?)
+ * Pouvoir récupérer l'adresse d'un contact inconnu s'il nous envoie un msg (wtf?) -> envoyer sa propre ip à chaque message ??? comment la récupérer localement ???
+ * Permettre la spécification du port sur la ligne de commande
+
 
 Rendu
 -----
@@ -34,6 +35,29 @@ Programme
  * Lancement: ./make run
  * usage make: make help|[mst]|run|clean
  * Pensez à alias m='./make' pour vous simplifier la vie
+ 
+ 
+Déroulement
+-----------
+On lance l'appli avec un identifiant.
+On entre des contacts (groupe) via une fenêtre graphique, ou bien via le fichier de config que l'on relit via une commande de l'appli.
+Si on reçoit un message d'un destinataire inconnu, on ajoute son adresse dans la table et on demande un identifiant.
+
+
+Commandes
+---------
+(+ bouton de l'interface)
+
+ * Quitter:				bye = end = stop = quit = exit = q
+ * Diffuser message:	broadcast = bc = all MSG
+ * Chercher contact:	search = seek = who [NOM]
+ * Wizz:				wizz [CTT/GRP]
+ * Recharger adresses:	refresh
+ * Aide:				help [CMD]
+ * Ajouter contact:		add NOM [ADR] [PORT]
+ * Supprimer contact:	delete = del [NOM/ADR]
+ * Lister:				list [GRP]
+ * Modifier contact:	modify = mod [CTT/GRP]
 
 
 Syntaxe fichier de config
@@ -85,29 +109,3 @@ Exemple de message
 	A bientot.
 	:bye
 
-
-Déroulement
------------
-On lance l'appli avec un identifiant.
-On entre des contacts (groupe) via une fenêtre graphique, ou bien via le fichier de config que l'on relit via une commande de l'appli.
-Si on reçoit un message d'un destinataire inconnu, on ajoute son adresse dans la table et on demande un identifiant.
-
-Fonctions diverses:
-
- * Chercher un contact parmi les listes de tous les amis
- * Diffusion de message: envoi à tous les amis, qui envoient à tous leurs amis, ... (bool à true si déjà reçu pour éviter les cycles)
-
-Commandes
----------
-(+ bouton de l'interface)
-
- * bye = end = stop = quit = exit
- * broadcast = bc = all MSG
- * search = seek = who [NOM]
- * wizz [CTT/GRP]
- * refresh
- * help [CMD]
- * add NOM [ADR] [PORT]
- * delete = del [NOM/ADR]
- * list [GRP]
- * modify = mod [CTT/GRP]

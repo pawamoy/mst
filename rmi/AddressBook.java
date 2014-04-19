@@ -129,9 +129,7 @@ public abstract class AddressBook
 	
 	public static boolean ValidName(String n)
 	{
-		if (n.contains(":") ||
-			n.contains(",") ||
-			n.contains("/"))
+		if (n.startsWith(" ") || IllegalCharacter(n) || MatchKeyword(n))
 			return false;
 		else
 			return true;
@@ -150,5 +148,41 @@ public abstract class AddressBook
 	public static boolean ValidPort(String p)
 	{
 		return p.matches("[0-9]*");
+	}
+	
+	public static boolean IllegalCharacter(String s)
+	{
+		return (
+			s.contains(":") ||
+			s.contains(",") ||
+			s.contains("/")
+		);
+	}
+	
+	public static boolean MatchKeyword(String s)
+	{
+		return (
+			s.compareTo("bye")			== 0 ||
+			s.compareTo("end")			== 0 ||
+			s.compareTo("stop")			== 0 ||
+			s.compareTo("quit")			== 0 ||
+			s.compareTo("q")			== 0 ||
+			s.compareTo("exit")			== 0 ||
+			s.compareTo("broadcast")	== 0 ||
+			s.compareTo("bc")			== 0 ||
+			s.compareTo("all")			== 0 ||
+			s.compareTo("search")		== 0 ||
+			s.compareTo("seek")			== 0 ||
+			s.compareTo("who")			== 0 ||
+			s.compareTo("wizz")			== 0 ||
+			s.compareTo("help")			== 0 ||
+			s.compareTo("add")			== 0 ||
+			s.compareTo("del")			== 0 ||
+			s.compareTo("delete")		== 0 ||
+			s.compareTo("list")			== 0 ||
+			s.compareTo("mod")			== 0 ||
+			s.compareTo("modify")		== 0 ||
+			s.compareTo("me")			== 0
+		);
 	}
 }
