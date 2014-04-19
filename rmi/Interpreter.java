@@ -84,7 +84,7 @@ public abstract class Interpreter
 			}
 			else
 			{	// message pour contact / groupe
-				if (AddressBook.ValidName(field[0]))
+				if ( !AddressBook.IllegalCharacter(field[0]) )
 				{
 					if (field.length > 1)
 					{
