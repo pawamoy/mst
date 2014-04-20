@@ -13,6 +13,7 @@ mst() {
 
 run() {
 	[ -z "$1" ] && { echo "You must specify your name" >&2; exit 1; }
+	[[ "$1" = "--help" || "$1" = "-h" ]] && { java MST $1 | more; return; }
 	echo "Setting up background service"
 	pkill rmiregistry; pkill java; sleep 0.5
 	rmiregistry & sleep 0.5

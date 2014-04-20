@@ -4,19 +4,18 @@ MST (Messaging Service Transport)
 TODO
 ----
 
- * Ajouter la lecture des commandes add, delete, list, modify (contacts)
- * Ajouter un timeout pour la récupération d'une interface via rmi (ou lancer via un thread): on veut pas bloquer le prog
- * Fonction exit: penser à actualiser le fichier d'adresses (si on output dans l'ordre, les dépendances sont respectées)
- * AddressBook: autoriser les commentaires avec '/'
  * Interpreter: autoriser les listes de contacts (séparateur ',' sans espace). Cela demande un traitement supplémentaire de Command.target dans les fonctions
- * Implémentation des fonctions demandées (voire paragraphe Commandes)
- * (Interface graphique)
- * Ecrire un rapport (diagrammes UML, etc...)
- * Faire une option --help
+ * Modifier l'utilisation des contacts/groupes courants: on veut pouvoir avoir des listes (et puis éviter le cast de RootGroup en Group)
+
+ * Ajouter un timeout pour la récupération d'une interface via rmi (ou lancer via un thread): on veut pas bloquer le prog
+ * Fonction exit: penser à actualiser le fichier d'adresses (si on output dans l'ordre, les dépendances sont respectées) 
  * Changer adresse d'un contact en '?' si erreur
  * Supprimer groupes vides ? (pendant l'exécution ? à l'arrêt ?)
  * Pouvoir récupérer l'adresse d'un contact inconnu s'il nous envoie un msg (wtf?) -> envoyer sa propre ip à chaque message ??? comment la récupérer localement ???
- * Permettre la spécification du port sur la ligne de commande
+ 
+ * (Interface graphique)
+ * Ecrire un rapport (diagrammes UML, etc...)
+
 
 
 Rendu

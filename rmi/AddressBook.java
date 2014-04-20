@@ -25,11 +25,15 @@ public abstract class AddressBook
 
 			String line, field[], id[];
 			
-			int d, count = 0;
+			int d, count = -1;
 
 			while ((line = br.readLine()) != null)
 			{
+				count++;
+					
 				line = line.replaceAll(" ", "");
+				if (line.startsWith("/")) continue;
+				if (line.isEmpty()) continue;
 				field = line.split(":");
 				id = field[1].split(",");
 				
@@ -107,8 +111,6 @@ public abstract class AddressBook
 						}
 					}
 				}
-				
-				count++;
 			}
 			
 			// on ajoute maintenant tous les contacts et groupes créés dans le groupe à renvoyer

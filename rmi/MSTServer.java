@@ -4,11 +4,13 @@ import java.rmi.*;
 public class MSTServer extends Thread
 {
 	private AppData app;
+	private static MSTClient local_client;
 	
-	public MSTServer(AppData a)
+	public MSTServer(AppData a, MSTClient client)
 	{
 		super();
 		app = a;
+		local_client = client;
 	}
 	
     public void run()
@@ -20,7 +22,7 @@ public class MSTServer extends Thread
     {
 		try
 		{
-            Communication comm = new Communication();
+            Communication comm = new Communication(local_client);
             Naming.rebind("my,own,comm", comm);
         }
         catch (RemoteException re)
