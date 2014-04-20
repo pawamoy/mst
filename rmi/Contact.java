@@ -10,7 +10,7 @@ public class Contact
 	public Contact(String name)
 	{
 		this.name = name;
-		ipAddress = "";
+		ipAddress = "?";
 		port = default_port;
 	}
 	

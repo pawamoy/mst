@@ -6,5 +6,9 @@ public enum CommandType
 	SEARCH,
 	WIZZ,
 	REFRESH,
-	HELP
+	HELP,
+	ADD,
+	DELETE,
+	MODIFY,
+	LIST
 }
