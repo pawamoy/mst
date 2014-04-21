@@ -44,8 +44,8 @@ Rendu
 Programme
 ---------
  * Compilation: ./make
- * Lancement: ./make run
- * usage make: make help|[mst]|run|clean
+ * Lancement: ./make run PSEUDO | [-h|--help]
+ * usage make: make help|[mst]|run ...|clean
  * Pensez à alias m='./make' pour vous simplifier la vie
  
  
@@ -73,7 +73,7 @@ Commandes
 (+ bouton de l'interface)
 
  * Quitter:				bye = end = stop = quit = exit = q
- * Diffuser message:	broadcast = bc = all MSG
+ * Diffuser message:	broadcast = bc MSG
  * Chercher contact:	search = seek = who [NOM]
  * Wizz:				wizz [CTT/GRP]
  * Recharger adresses:	refresh
