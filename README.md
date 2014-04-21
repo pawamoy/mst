@@ -5,15 +5,14 @@ TODO
 ----
  * Interpreter: autoriser les listes de contacts (séparateur ',' sans espace). Cela demande un traitement supplémentaire de Command.target dans les fonctions
  * Modifier l'utilisation des contacts/groupes courants: on veut pouvoir avoir des listes (et puis éviter le cast de RootGroup en Group)
-
  * Ajouter un timeout pour la récupération d'une interface via rmi (ou lancer via un thread): on veut pas bloquer le prog
  * Fonction exit: penser à actualiser le fichier d'adresses (si on output dans l'ordre, les dépendances sont respectées) 
  * Changer adresse d'un contact en '?' si erreur
  * Supprimer groupes vides ? (pendant l'exécution ? à l'arrêt ?)
  * Pouvoir récupérer l'adresse d'un contact inconnu s'il nous envoie un msg (wtf?) -> envoyer sa propre ip à chaque message ??? comment la récupérer localement ???
- 
  * (Interface graphique)
  * Ecrire un rapport (diagrammes UML, etc...)
+ * Est-il utile de conserver les adresses ip puisque le programme ne fonctionnera pas via internet ? revoir l'implémentation
 
 
 Explication diagramme
@@ -60,6 +59,13 @@ On envoie un message au(x) destinataire(s) courant(s) en tappant simplement du t
 On précise le destinataire en précédant son nom par ':', exemple ":hollande salut mon gros :)"
 Le destinataire peut être un contact ou un groupe, ou même une liste de contacts/groupes, séparés par ',' (fonctionnalité non implémentée).
 On utilise une commande de l'application en la faisant précéder de ':', exemple ":broadcast Diiiiiiiiii...-FUSION !"
+
+
+Remarque
+--------
+La communication via internet ne fonctionne PAS.
+En réseau local cependant, les utilisateurs devront se différencier grâce au port.
+Un port différent par personne devra être utilisé.
 
 
 Commandes
