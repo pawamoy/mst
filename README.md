@@ -3,7 +3,6 @@ MST (Messaging Service Transport)
 
 TODO
 ----
-
  * Interpreter: autoriser les listes de contacts (séparateur ',' sans espace). Cela demande un traitement supplémentaire de Command.target dans les fonctions
  * Modifier l'utilisation des contacts/groupes courants: on veut pouvoir avoir des listes (et puis éviter le cast de RootGroup en Group)
 
@@ -17,10 +16,26 @@ TODO
  * Ecrire un rapport (diagrammes UML, etc...)
 
 
+Explication diagramme
+---------------------
+Le programme principal, MST, instancie un MSTClient et un MSTServeur, lancés en tant que threads.
+
+Le serveur instancie une Communication contenant la référence au client local.
+Cela permet à l'instance de Communication d'appeler des méthodes du client, comme le nécessite la diffusion.
+
+AppData (en fait instanciée dans MST) n'est utilisée que par le client.
+Elle contient le RootGroup contacts, contenant tous les contacts et tous les groupes (une seule instance possible).
+La classe Group dérive de RootGroup, redéfinissant quelques méthodes (suppression d'éléments), et ajoutant d'autres méthodes. Cela permet une définition en arborescence de groupes et sous-groupes de contacts.
+
+Chaque contact possède un nom (choisi par l'utilisateur local, aucune influence sur le programme),
+une adresse ip connue (A.B.C.D) ou non (?), un port (par défaut 1099), et une interface de communication.
+
+Cette instance de CommInterface sert au client local pour contacter les serveurs distants
+(y compris le serveur local via l'attribut contact "me" de AppData).
+
 
 Rendu
 -----
-
  * A rendre avant le 28 avril
  * Rapport papier à mettre dans le casier de Sonntag
  * Rendre le code en même temps par mail (+ executable)
@@ -29,7 +44,6 @@ Rendu
 
 Programme
 ---------
-
  * Compilation: ./make
  * Lancement: ./make run
  * usage make: make help|[mst]|run|clean
@@ -38,9 +52,10 @@ Programme
  
 Déroulement
 -----------
-On lance l'appli avec un identifiant.
-On entre des contacts (groupe) via une fenêtre graphique, ou bien via le fichier de config que l'on relit via une commande de l'appli.
-Si on reçoit un message d'un destinataire inconnu, on ajoute son adresse dans la table et on demande un identifiant.
+Au démarrage, tous les contacts/groupes sont lu dans le fichier appdata/addressbook par la classe AddressBook.
+L'utilisateur peut alors tapper des commandes au clavier (String), qui sont envoyées
+à l'Interpreter. L'Interpreter renvoie alors une Commande au client, que ce dernier va traiter
+(en utilisant les interfaces de communication des contacts pour les requêtes distantes).
 
 
 Commandes

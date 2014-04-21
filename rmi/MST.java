@@ -117,7 +117,7 @@ public class MST
 		int sleep_msec = 1000;
 		
 		local_client = new MSTClient(app);
-		local_server = new MSTServer(app, local_client);
+		local_server = new MSTServer(local_client);
 		
 		local_server.start();
 		System.out.println("Local server will be ready in "+sleep_msec/1000+"second(s)...");

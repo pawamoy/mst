@@ -3,13 +3,11 @@ import java.rmi.*;
 
 public class MSTServer extends Thread
 {
-	private AppData app;
 	private static MSTClient local_client;
 	
-	public MSTServer(AppData a, MSTClient client)
+	public MSTServer(MSTClient client)
 	{
 		super();
-		app = a;
 		local_client = client;
 	}
 	
