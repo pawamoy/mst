@@ -1,4 +1,0 @@
-interface ICommand
-{
-    boolean SendCommand(in string cmd, in string args);
-};
