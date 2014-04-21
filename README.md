@@ -56,6 +56,10 @@ Au démarrage, tous les contacts/groupes sont lu dans le fichier appdata/address
 L'utilisateur peut alors tapper des commandes au clavier (String), qui sont envoyées
 à l'Interpreter. L'Interpreter renvoie alors une Commande au client, que ce dernier va traiter
 (en utilisant les interfaces de communication des contacts pour les requêtes distantes).
+On envoie un message au(x) destinataire(s) courant(s) en tappant simplement du texte.
+On précise le destinataire en précédant son nom par ':', exemple ":hollande salut mon gros :)"
+Le destinataire peut être un contact ou un groupe, ou même une liste de contacts/groupes, séparés par ',' (fonctionnalité non implémentée).
+On utilise une commande de l'application en la faisant précéder de ':', exemple ":broadcast Diiiiiiiiii...-FUSION !"
 
 
 Commandes
