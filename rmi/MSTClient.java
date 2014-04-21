@@ -19,8 +19,6 @@ public class MSTClient extends Thread
 	public void run()
 	{
 		Command cmd;
-		// mon interface de communication
-		app.me.comm = GetCommInterface(app.me.ipAddress, app.me.port);
 		
 		/*
 		 * Application client à foutre ici
