@@ -184,6 +184,6 @@ public class MSTguiApp extends SingleFrameApplication {
      */
     public static void main(String[] args) {
         launch(MSTguiApp.class, args);
-        MSTguiApp.Loop(args);
+        //MSTguiApp.Loop(args);
     }
 }
