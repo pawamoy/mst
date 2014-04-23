@@ -37,7 +37,7 @@ public class MSTguiApp extends SingleFrameApplication {
                     if (args[0].compareTo("--help") == 0 ||
                             args[0].compareTo("-h") == 0)
                     {
-                            Help();
+                            //Help();
                             System.exit(0);
                     }
                     // vérification nom fourni (pas de , / ou :)

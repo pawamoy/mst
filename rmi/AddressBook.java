@@ -25,7 +25,7 @@ public abstract class AddressBook
 
 			String line, field[], id[];
 			
-			int d, count = -1;
+			int d, count = 0;
 
 			while ((line = br.readLine()) != null)
 			{
@@ -139,7 +139,7 @@ public abstract class AddressBook
 	
 	public static boolean ValidHost(String h)
 	{
-		if (h.matches("[0-9]*.[0-9]*.[0-9]*.[0-9]*.") ||
+		if (h.matches("[0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]*") ||
 			h.compareTo("?") == 0 ||
 			h.compareTo("localhost") == 0)
 			return true;

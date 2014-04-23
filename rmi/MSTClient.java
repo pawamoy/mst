@@ -16,6 +16,11 @@ public class MSTClient extends Thread
 		num_bc = 0;
 	}
 	
+	public Contact GetMyself()
+	{
+		return app.me;
+	}
+	
 	public void run()
 	{
 		Command cmd;
@@ -272,20 +277,27 @@ public class MSTClient extends Thread
 		}
 		else
 		{
-			ctt = app.contacts.GetContact(cmd.target);
-				
-			if (ctt != null)
+			if (cmd.target.compareTo("me") == 0)
 			{
-				PrintContact(ctt);
+				PrintContact(app.me);
 			}
 			else
 			{
-				grp = app.contacts.GetGroup(cmd.target);
-				
-				if (grp != null)
-					ListGroup(grp);
+				ctt = app.contacts.GetContact(cmd.target);
+					
+				if (ctt != null)
+				{
+					PrintContact(ctt);
+				}
 				else
-					System.err.println("Error: client: unknown reference \""+cmd.target+"\"");
+				{
+					grp = app.contacts.GetGroup(cmd.target);
+					
+					if (grp != null)
+						ListGroup(grp);
+					else
+						System.err.println("Error: client: unknown reference \""+cmd.target+"\"");
+				}
 			}
 		}
 	}

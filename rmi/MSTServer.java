@@ -18,10 +18,13 @@ public class MSTServer extends Thread
     
     public static void InitCommandObject()
     {
+		Contact me = local_client.GetMyself();
+		
 		try
 		{
+			System.out.println("Server sur port "+me.port);
             Communication comm = new Communication(local_client);
-            Naming.rebind("my,own,comm", comm);
+            Naming.rebind("rmi://localhost:"+me.port+"/my,own,comm", comm);
         }
         catch (RemoteException re)
         {
