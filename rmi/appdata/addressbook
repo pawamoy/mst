@@ -1,7 +1,19 @@
 /** Contacts **/
-valéry:192.168.1.27
-thomas:194.254.54.56
-timothée:195.132.208.172
+tim1:localhost,1099
+tim2:localhost,1100
+tim3:localhost,1101
+tom1:localhost,1102
+tom2:localhost,1103
+tom3:localhost,1104
+val1:localhost,1105
+val2:localhost,1106
+val3:localhost,1107
 
 /** Groupes **/
-potos : timothée, valéry, thomas
+tim : tim1,  tim2  ,tim3
+tom:tom1,tom2,tom3
+val:val1,val2,val3
+poto1:tim1,tom1,val1
+poto2:tim2,tom2,val2
+poto3:tim3,tom3,val3
+potos:poto1,poto2,poto3

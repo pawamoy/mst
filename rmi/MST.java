@@ -31,6 +31,7 @@ public class MST
 			// vérification port fourni (que des chiffres)
 			if (args.length == 2)
 			{
+				
 				if ( !AddressBook.ValidPort(args[1]) )
 				{
 					System.err.println("Error: port has to be an integer");
