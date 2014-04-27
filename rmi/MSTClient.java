@@ -135,6 +135,7 @@ public class MSTClient extends Thread
 	{
 		String atWho = "";
 		int ntarg = cmd.NbTarget();
+		boolean err = false;
 		
 		if (ntarg == 0)
 		{
@@ -179,7 +180,10 @@ public class MSTClient extends Thread
 			}
 			
 			if (no_previous_contact && no_previous_group)
+			{
+				err = true;
 				System.err.println("Error: client: no previous communication");
+			}
 		}
 		else
 		{
@@ -233,6 +237,7 @@ public class MSTClient extends Thread
 						}
 						else
 						{
+							err = true;
 							System.err.println("Error: client: unknown reference \""+targ+"\"");
 						}
 					}
