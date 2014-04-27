@@ -49,20 +49,33 @@ public class MSTMainFrame extends JFrame
 
     public void InitStyles()
     {
+        MutableAttributeSet attrs = textPane.getInputAttributes();
+        Font font = new Font("Liberation Mono", Font.ITALIC, 20);
+        
         Style style = textPane.addStyle("info", textPane.getStyle("default"));
         StyleConstants.setForeground(style, Color.BLUE);
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, font.getSize());
 
         style = textPane.addStyle("error", textPane.getStyle("default"));
         StyleConstants.setForeground(style, Color.RED);
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, font.getSize());
 
         style = textPane.addStyle("sent_message", textPane.getStyle("default"));
         StyleConstants.setForeground(style, Color.GREEN);
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, font.getSize());
 
         style = textPane.addStyle("received_message", textPane.getStyle("default"));
         StyleConstants.setForeground(style, Color.BLACK);
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, font.getSize());
         
         style = textPane.addStyle("help", textPane.getStyle("default"));
         StyleConstants.setForeground(style, Color.YELLOW);
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, font.getSize());
     }
     
     public void Print(String msg, String style)
