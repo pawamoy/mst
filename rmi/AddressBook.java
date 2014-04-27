@@ -123,7 +123,7 @@ public abstract class AddressBook
 		}
 		catch (Exception e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			System.err.println("Error: addressbook: unable to read "+filename+" file");
 		}
 		
 		return all_contacts;
@@ -193,5 +193,69 @@ public abstract class AddressBook
 			s.compareTo("modify")		== 0 ||
 			s.compareTo("me")			== 0
 		);
+	}
+	
+	public static void WriteContacts(String filename, RootGroup rg)
+	{
+		Contact c, gc;
+		Group g, gg;
+		int i,j;
+		boolean ctt = false;
+		
+		try
+		{
+			FileWriter fw = new FileWriter(filename);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+			for (i=0; i<rg.ContactSize(); i++)
+			{
+				c = rg.GetContact(i);
+				
+				bw.write(c.name+":"+c.ipAddress+","+c.port);
+				bw.newLine();
+			}
+			
+			for (i=0; i<rg.GroupSize(); i++)
+			{
+				g = rg.GetGroup(i);
+				bw.write(g.name);
+				
+				int s = g.ContactSize();
+				if (s > 0)
+				{
+					ctt = true;
+					for (j=0; j<s-1; j++)
+					{
+						gc = g.GetContact(j);
+						bw.write(gc.name+",");
+					}
+					gc = g.GetContact(j);
+					bw.write(gc.name);
+				}
+				
+				s = g.GroupSize();
+				if (s > 0)
+				{
+					if (ctt == true)
+						bw.write(",");
+						
+					for (j=0; j<s-1; j++)
+					{
+						gg = g.GetGroup(j);
+						bw.write(gg.name+",");
+					}
+					gg = g.GetGroup(j);
+					bw.write(gg.name);
+				}
+				
+				bw.newLine();
+			}
+			
+            bw.flush();
+		}
+		catch (Exception e)
+		{
+			System.err.println("Error: " + e.getMessage());
+		}
 	}
 }
