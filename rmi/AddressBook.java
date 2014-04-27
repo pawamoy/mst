@@ -206,7 +206,7 @@ public abstract class AddressBook
 			FileWriter fw = new FileWriter(filename);
             BufferedWriter bw = new BufferedWriter(fw);
 
-			bw.write("/* Contact */");
+			bw.write("/** Contacts **/");
 			bw.newLine();
 			bw.newLine();
 			
@@ -219,7 +219,7 @@ public abstract class AddressBook
 			}
 			
 			bw.newLine();
-			bw.write("/* Groups */");
+			bw.write("/** Groups **/");
 			bw.newLine();
 			bw.newLine();
 			
@@ -262,7 +262,7 @@ public abstract class AddressBook
 		}
 		catch (Exception e)
 		{
-			System.err.println("Error: " + e.getMessage());
+			System.err.println("Error: addressbook: " + e.getMessage());
 		}
 	}
 }

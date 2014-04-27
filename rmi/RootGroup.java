@@ -96,6 +96,17 @@ public class RootGroup
 		return null;
 	}
 	
+	public Contact GetContactByPort(int port)
+	{
+		for (int i=0; i<ContactSize(); i++)
+		{
+			if (GetContact(i).HasPort(port))
+				return GetContact(i);
+		}
+		
+		return null;
+	}
+	
 	public boolean Contains(Contact c)
 	{
 		return contacts.contains(c);

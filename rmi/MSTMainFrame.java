@@ -73,7 +73,7 @@ public class MSTMainFrame extends JFrame
         StyleConstants.setFontSize(attrs, font.getSize());
         
         style = textPane.addStyle("help", textPane.getStyle("default"));
-        StyleConstants.setForeground(style, Color.YELLOW);
+        StyleConstants.setForeground(style, Color.ORANGE);
         StyleConstants.setFontFamily(attrs, font.getFamily());
         StyleConstants.setFontSize(attrs, font.getSize());
     }
