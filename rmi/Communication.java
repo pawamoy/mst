@@ -32,7 +32,7 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 	
 	public boolean Message(String msg) throws RemoteException
 	{
-		System.out.println(msg);
+        local_client.app.mf.Print(msg, "received_message");
 		return true;
 	}
 	

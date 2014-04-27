@@ -24,6 +24,7 @@ public class MSTMainFrame extends JFrame
         
         textPane = new JTextPane();
         textPane.setBorder(new EmptyBorder(10, 10, 10, 10) );
+        textPane.setEditable(false);
         pan.add(new JScrollPane(textPane));
         
         DefaultCaret caret = (DefaultCaret)textPane.getCaret();
