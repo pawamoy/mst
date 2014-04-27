@@ -73,6 +73,7 @@ public class MSTMainFrame extends JFrame
     
     public void Wizz()
     {
+        Print("sound played", "info");
           try {
              // Open an audio input stream.
              URL url = this.getClass().getClassLoader().getResource("appdata/wizz.wav");
