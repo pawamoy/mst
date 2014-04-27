@@ -219,7 +219,7 @@ public abstract class AddressBook
 			}
 			
 			bw.newLine();
-			bw.msg("/* Groups */");
+			bw.write("/* Groups */");
 			bw.newLine();
 			bw.newLine();
 			
