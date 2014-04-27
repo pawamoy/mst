@@ -135,11 +135,15 @@ public class MSTClient extends Thread
 	{
 		if (cmd.target.isEmpty())
 		{
+			boolean no_previous_contact = false;
+			boolean no_previous_group = false;
+			
 			if (app.cur_con != null)
-			{
 				SendMessage(app.cur_con, cmd.args);
-			}
-			else if (app.cur_grp != null)
+			else
+				no_previous_contact = true;
+				
+			if (app.cur_grp != null)
 			{
 				ArrayList<Contact> group_ctt = app.cur_grp.GetAllContacts();
 						
@@ -148,8 +152,11 @@ public class MSTClient extends Thread
 			}
 			else
 			{
-				System.err.println("Error: client: no previous communication");
+				no_previous_group = true;
 			}
+			
+			if (no_previous_contact && no_previous_group)
+				System.err.println("Error: client: no previous communication");
 		}
 		else
 		{

@@ -22,7 +22,6 @@ public class MSTServer extends Thread
 		
 		try
 		{
-			System.out.println("Server sur port "+me.port);
             Communication comm = new Communication(local_client);
             Naming.rebind("rmi://localhost:"+me.port+"/my,own,comm", comm);
         }
