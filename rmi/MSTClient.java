@@ -114,7 +114,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case ADD:
-				//~ Add(cmd);
+				Add(cmd);
 				break;
 				
 			case DELETE:
