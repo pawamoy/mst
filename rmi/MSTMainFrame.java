@@ -26,7 +26,10 @@ public class MSTMainFrame extends JFrame
     textPane.setBorder(new EmptyBorder(10, 10, 10, 10) );
     pan.add(new JScrollPane(textPane));
     
-    textField = new JTextField(8);
+    DefaultCaret caret = (DefaultCaret)textPane.getCaret();
+    caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+    
+    textField = new JTextField();
     textField.setMaximumSize(
         new Dimension(Integer.MAX_VALUE,
         textField.getPreferredSize().height));
