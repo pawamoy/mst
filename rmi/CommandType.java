@@ -10,5 +10,6 @@ public enum CommandType
 	ADD,
 	DELETE,
 	MODIFY,
+    NICKNAME,
 	LIST
 }
