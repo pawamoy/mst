@@ -199,8 +199,7 @@ public abstract class AddressBook
 	{
 		Contact c, gc;
 		Group g, gg;
-		int i,j;
-		boolean ctt = false;
+		int i, j, sc, sg;
 		
 		try
 		{
@@ -218,13 +217,12 @@ public abstract class AddressBook
 			for (i=0; i<rg.GroupSize(); i++)
 			{
 				g = rg.GetGroup(i);
-				bw.write(g.name);
+				bw.write(g.name+":");
 				
-				int s = g.ContactSize();
-				if (s > 0)
+				sc = g.ContactSize();
+				if (sc > 0)
 				{
-					ctt = true;
-					for (j=0; j<s-1; j++)
+					for (j=0; j<sc-1; j++)
 					{
 						gc = g.GetContact(j);
 						bw.write(gc.name+",");
@@ -233,13 +231,13 @@ public abstract class AddressBook
 					bw.write(gc.name);
 				}
 				
-				s = g.GroupSize();
-				if (s > 0)
+				sg = g.GroupSize();
+				if (sg > 0)
 				{
-					if (ctt == true)
+					if (sc > 0)
 						bw.write(",");
 						
-					for (j=0; j<s-1; j++)
+					for (j=0; j<sg-1; j++)
 					{
 						gg = g.GetGroup(j);
 						bw.write(gg.name+",");

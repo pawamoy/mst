@@ -285,12 +285,12 @@ public class MSTClient extends Thread
 		{
 			try
 			{
-				ctt.comm.Message(msg);
+				ctt.comm.Message(msg, app.me.port);
 				return true;
 			}
 			catch (RemoteException re)
 			{
-				app.mf.Print("Error: client: " + re.getMessage(), "error");
+				app.mf.Print("Error: rmi: unable to join "+ctt.name, "error");
 				return false;
 			}
 		}

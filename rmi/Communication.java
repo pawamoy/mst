@@ -30,8 +30,9 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 		broadcast_ids = new ArrayList<BC_MSG>();
 	}
 	
-	public boolean Message(String msg) throws RemoteException
+	public boolean Message(String msg, int id) throws RemoteException
 	{
+		//String sender = local_client.WhoSendIt(id);
         local_client.app.mf.Print(msg, "received_message");
 		return true;
 	}
@@ -41,7 +42,7 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 		if ( !AlreadyGot(id, num) )
 		{
 			broadcast_ids.add(new BC_MSG(id, num));
-			Message(msg);
+			Message(msg, id);
 			
 			local_client.Broadcast(id, num, msg);
 			return true;
