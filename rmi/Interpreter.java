@@ -5,6 +5,7 @@ public abstract class Interpreter
 		Command result = null;
 		CommandType res_type;
 		String field[];
+		String target[];
 		String args = "";
 		// si la commande commence par ':'
 		if (s.startsWith(":"))
@@ -117,14 +118,17 @@ public abstract class Interpreter
 				break;
 			
 			case MESSAGE:
-				if ( !AddressBook.IllegalCharacter(field[0]) )
+				if ( !AddressBook.ContainsDPOrSlash(field[0]) )
 				{
 					if (field.length > 1)
 					{
 						for (int i=1; i<field.length; i++)
 							args = args.concat(field[i]+" ");
 							
-						result = new Command(CommandType.MESSAGE, field[0], args);
+						target = field[0].split(",");
+						result = new Command(CommandType.MESSAGE, target[0], args);
+						for (int i=1; i<target.length; i++)
+							result.AddTarget(target[i]);
 					}
 					else
 					{
