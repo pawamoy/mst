@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class MSTClient extends Thread
 {	
-	private static AppData app;
+	public static AppData app;
 	private volatile boolean loop;
 	private int num_bc;
 	
