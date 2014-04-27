@@ -79,7 +79,6 @@ public class MSTMainFrame extends JFrame
         {
             File f = new File("../appdata/wizz.wav");
             AudioClip clip = Applet.newAudioClip(new URL("file://"+ f.getAbsolutePath()));
-            //AudioClip clip = Applet.newAudioClip(new URL("file:///home/tom/S6/SD/ProjetSD/appdata/wizz.wav"));
             clip.play();
         } 
         catch (MalformedURLException murle) 
