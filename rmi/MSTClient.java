@@ -102,7 +102,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case WIZZ:
-				//~ Wizz(cmd);
+				Wizz(cmd);
 				break;
 				
 			case REFRESH:
@@ -118,12 +118,17 @@ public class MSTClient extends Thread
 				break;
 				
 			case DELETE:
-				//~ Delete(cmd);
+				Delete(cmd);
 				break;
 				
 			case MODIFY:
 				//~ Modify(cmd);
 				break;
+                
+            case NICKNAME:
+                app.me.name = cmd.target.get(0);
+                app.mf.Print("You are now known as " + app.me.name, "info");
+                break;
 				
 			case LIST:
 				List(cmd);
@@ -134,6 +139,60 @@ public class MSTClient extends Thread
 				break;
 		}
 	}
+    
+    public void Wizz(Command cmd)
+    {
+        if (cmd.target.get(0).compareTo("me") == 0)
+        {
+            app.mf.Print("Are you dumb ?!", "error");
+        }
+        else
+        {
+            Contact ctt = app.contacts.GetContact(cmd.target.get(0));
+                
+            if (ctt != null)
+            {
+                if (SendWizz(ctt) == true)
+                    app.mf.Print("You wizzed "+cmd.target.get(0)+"!", "info");
+            }
+            else
+            {
+                app.mf.Print("Error: client: wizz: unknown contact \""+cmd.target.get(0)+"\"", "error");
+            }
+        }
+    }
+    
+    public void Delete(Command cmd)
+    {
+        if (cmd.target.get(0).compareTo("me") == 0)
+        {
+            app.mf.Print("Are you dumb ?!", "error");
+        }
+        else
+        {
+            Contact ctt = app.contacts.GetContact(cmd.target.get(0));
+                
+            if (ctt != null)
+            {
+                app.mf.Print(ctt.name + "deleted", "info");
+                app.contacts.Del(ctt);
+            }
+            else
+            {
+                Group grp = app.contacts.GetGroup(cmd.target.get(0));
+                
+                if (grp != null)
+                {
+                    app.mf.Print("-- Group "+grp.name+ " deleted", "info");
+                    app.contacts.Del(grp);
+                }
+                else
+                {
+                    app.mf.Print("Error: client: unknown reference \""+cmd.target.get(0)+"\"", "error");
+                }
+            }
+        }
+    }
 	
 	public void Message(Command cmd)
 	{
@@ -274,6 +333,29 @@ public class MSTClient extends Thread
 		}
 	}
 	
+    public boolean SendWizz(Contact ctt)
+    {
+		if (ctt.comm == null)
+		{
+			ctt.comm = GetComm(ctt);
+		}
+		
+		if (ctt.comm != null)
+		{
+			try
+			{
+				ctt.comm.Wizz(app.me.port);
+				return true;
+			}
+			catch (RemoteException re)
+			{
+				app.mf.Print("Error: rmi: unable to wizz "+ctt.name, "error");
+				return false;
+			}
+		}
+		return false;
+    }
+    
 	public boolean SendMessage(Contact ctt, String msg)
 	{
 		if (ctt.comm == null)

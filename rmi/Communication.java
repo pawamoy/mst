@@ -29,6 +29,23 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 		local_client = client;
 		broadcast_ids = new ArrayList<BC_MSG>();
 	}
+    
+    public boolean Wizz(int id) throws RemoteException
+    {
+		String print = "";
+		String unknown = "?";
+		
+		String sender = local_client.WhoSentIt(id);
+		if ( !sender.isEmpty() )
+			print = sender.concat(print);
+		else
+			print = unknown.concat(print);
+			
+        local_client.app.mf.Print(print + "sent you a wizz", "wizz");
+        local_client.app.mf.Wizz();
+        
+		return true;
+    }
 	
 	public boolean Message(String msg, int id) throws RemoteException
 	{
