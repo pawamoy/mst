@@ -139,6 +139,7 @@ public class MSTClient extends Thread
 	{
 		String atWho = "";
 		int ntarg = cmd.NbTarget();
+		boolean err = false;
 		
 		if (ntarg == 0)
 		{
@@ -183,7 +184,10 @@ public class MSTClient extends Thread
 			}
 			
 			if (no_previous_contact && no_previous_group)
+			{
+				err = true;
 				app.mf.Print("Error: client: no previous communication", "error");
+			}
 		}
 		else
 		{
@@ -237,6 +241,7 @@ public class MSTClient extends Thread
 						}
 						else
 						{
+							err = true;
 							app.mf.Print("Error: client: unknown reference \""+targ+"\"", "error");
 						}
 					}
