@@ -56,7 +56,7 @@ public class MSTClient extends Thread
 		 */
 	}
 	
-    public static CommInterface GetCommInterface(String host, int port)
+    public static CommInterface GetCommInterface(String name, String host, int port)
     {
 		CommInterface comm = null;
 		
@@ -66,15 +66,15 @@ public class MSTClient extends Thread
 		}
 		catch (MalformedURLException mue)
 		{
-            app.mf.Print("Error: client: " + mue.getMessage(), "error");
+            app.mf.Print("Error: rmi: unable to join "+name, "error");
 		}
 		catch (NotBoundException nbe)
 		{
-            app.mf.Print("Error: client: " + nbe.getMessage(), "error");
+            app.mf.Print("Error: rmi: unable to join "+name, "error");
 		}
 		catch (RemoteException re)
 		{
-            app.mf.Print("Error: client: " + re.getMessage(), "error");
+            app.mf.Print("Error: rmi: unable to join "+name, "error");
 		}
 		
 		return comm;
@@ -270,7 +270,7 @@ public class MSTClient extends Thread
 		}
 		else
 		{
-			return GetCommInterface(ctt.ipAddress, ctt.port);
+			return GetCommInterface(ctt.name, ctt.ipAddress, ctt.port);
 		}
 	}
 	
