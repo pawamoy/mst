@@ -32,6 +32,7 @@ public class MSTgui
     private static void textFieldKeyPressed(java.awt.event.KeyEvent evt) 
     {
     // Send command to parser to analyze the sentence.
+        Command cmd;
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
@@ -42,7 +43,7 @@ public class MSTgui
 				cmd = Interpreter.StringToCommand(line);
 				if (cmd != null)
 				{
-					TreatCommand(cmd);
+					local_client.TreatCommand(cmd);
 				}
 			}
             
