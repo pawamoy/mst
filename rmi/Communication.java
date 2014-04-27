@@ -41,7 +41,7 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 		else
 			print = unknown.concat(print);
 			
-        local_client.app.mf.Print(print + " sent you a wizz", "wizz");
+        local_client.app.mf.Print(print + " sent you a wizz !", "wizz");
         local_client.app.mf.Wizz();
         
 		return true;
