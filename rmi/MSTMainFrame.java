@@ -24,7 +24,7 @@ public class MSTMainFrame extends JFrame
     
     textPane = new JTextPane();
     textPane.setBorder(new EmptyBorder(10, 10, 10, 10) );
-    pan.add(textPane);
+    pan.add(new JScrollPane(textPane));
     
     textField = new JTextField(8);
     textField.setMaximumSize(
