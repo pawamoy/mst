@@ -73,23 +73,37 @@ public class MSTMainFrame extends JFrame
     
     public void Wizz()
     {
-        Print("sound played", "info");
-          try {
-             // Open an audio input stream.
-             URL url = this.getClass().getClassLoader().getResource("appdata/wizz.wav");
-             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
-             // Get a sound clip resource.
-             Clip clip = AudioSystem.getClip();
-             // Open audio clip and load samples from the audio input stream.
-             clip.open(audioIn);
-             clip.start();
-          } catch (UnsupportedAudioFileException e) {
-             e.printStackTrace();
-          } catch (IOException e) {
-             e.printStackTrace();
-          } catch (LineUnavailableException e) {
-             e.printStackTrace();
-          }
+        //~ Print("sound played", "info");
+          //~ try {
+             //~ // Open an audio input stream.
+             //~ URL url = this.getClass().getClassLoader().getResource("appdata/wizz.wav");
+             //~ AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+             //~ // Get a sound clip resource.
+             //~ Clip clip = AudioSystem.getClip();
+             //~ // Open audio clip and load samples from the audio input stream.
+             //~ clip.open(audioIn);
+             //~ clip.start();
+          //~ } catch (UnsupportedAudioFileException e) {
+             //~ e.printStackTrace();
+          //~ } catch (IOException e) {
+             //~ e.printStackTrace();
+          //~ } catch (LineUnavailableException e) {
+             //~ e.printStackTrace();
+          //~ }
+          
+Clip clip = AudioSystem.getClip();
+        // getAudioInputStream() also accepts a File or InputStream
+        AudioInputStream ais = AudioSystem.
+            getAudioInputStream( "appdata/wizz.wav" );
+        clip.open(ais);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                // A GUI element to prevent the Clip's daemon Thread
+                // from terminating at the end of the main()
+                JOptionPane.showMessageDialog(null, "Close to exit!");
+            }
+        });
     }
     
     public void Print(String msg, String style)
