@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class MSTClient extends Thread
 {	
-	private AppData app;
+	private static AppData app;
 	private volatile boolean loop;
 	private int num_bc;
 	
@@ -23,29 +23,29 @@ public class MSTClient extends Thread
 	
 	public void run()
 	{
-		Command cmd;
+		//Command cmd;
 		
 		/*
 		 * Application client à foutre ici
 		 */
 		 
-		String line = "";
-		Scanner sc = new Scanner(System.in);
-		
-		loop = true;
-		
-		while (loop == true) {
-			System.out.print("> ");
-			line = sc.nextLine();
-			if ( !line.isEmpty() )
-			{
-				cmd = Interpreter.StringToCommand(line);
-				if (cmd != null)
-				{
-					TreatCommand(cmd);
-				}
-			}
-		}
+		//~ String line = "";
+		//~ Scanner sc = new Scanner(System.in);
+		//~ 
+		//~ loop = true;
+		//~ 
+		//~ while (loop == true) {
+			//~ System.out.print("> ");
+			//~ line = sc.nextLine();
+			//~ if ( !line.isEmpty() )
+			//~ {
+				//~ cmd = Interpreter.StringToCommand(line);
+				//~ if (cmd != null)
+				//~ {
+					//~ TreatCommand(cmd);
+				//~ }
+			//~ }
+		//~ }
 		
 		/*
 		 * Application client terminée
@@ -62,15 +62,15 @@ public class MSTClient extends Thread
 		}
 		catch (MalformedURLException mue)
 		{
-			System.err.println("Error: client: " + mue.getMessage());
+            app.mf.Print("Error: client: " + mue.getMessage(), "error");
 		}
 		catch (NotBoundException nbe)
 		{
-			System.err.println("Error: client: " + nbe.getMessage());
+            app.mf.Print("Error: client: " + nbe.getMessage(), "error");
 		}
 		catch (RemoteException re)
 		{
-			System.err.println("Error: client: " + re.getMessage());
+            app.mf.Print("Error: client: " + re.getMessage(), "error");
 		}
 		
 		return comm;
@@ -126,7 +126,7 @@ public class MSTClient extends Thread
 				break;
 				
 			default:
-				System.err.println("Error: client: wrong command type (???)");
+                app.mf.Print("Error: client: wrong command type (???)", "error");
 				break;
 		}
 	}
@@ -179,7 +179,7 @@ public class MSTClient extends Thread
 			}
 			
 			if (no_previous_contact && no_previous_group)
-				System.err.println("Error: client: no previous communication");
+				app.mf.Print("Error: client: no previous communication", "error");
 		}
 		else
 		{
@@ -233,7 +233,7 @@ public class MSTClient extends Thread
 						}
 						else
 						{
-							System.err.println("Error: client: unknown reference \""+targ+"\"");
+							app.mf.Print("Error: client: unknown reference \""+targ+"\"", "error");
 						}
 					}
 				}
@@ -269,7 +269,7 @@ public class MSTClient extends Thread
 			}
 			catch (RemoteException re)
 			{
-				System.err.println("Error: client: " + re.getMessage());
+				app.mf.Print("Error: client: " + re.getMessage(), "error");
 			}
 		}
 	}
@@ -300,7 +300,7 @@ public class MSTClient extends Thread
 			}
 			catch (RemoteException re)
 			{
-				System.err.println("Error: client: " + re.getMessage());
+				app.mf.Print("Error: client: " + re.getMessage(), "error");
 			}
 		}
 	}
@@ -337,7 +337,7 @@ public class MSTClient extends Thread
 					if (grp != null)
 						ListGroup(grp);
 					else
-						System.err.println("Error: client: unknown reference \""+cmd.target.get(0)+"\"");
+						app.mf.Print("Error: client: unknown reference \""+cmd.target.get(0)+"\"", "error");
 				}
 			}
 		}
