@@ -257,7 +257,7 @@ public class MSTClient extends Thread
 			}
 		}
 		
-		if (err == false)
+		if (err == false && send_atleast1 == true)
 			app.mf.Print(atWho+": "+cmd.args, "sent_message");
 	}
 	
@@ -339,6 +339,7 @@ public class MSTClient extends Thread
 		
 		if (ntarg == 0)
 		{			
+			app.mf.Print("-- All Contacts & Groups --", "help");
 			ListGroup(app.contacts);
 		}
 		else
@@ -360,9 +361,14 @@ public class MSTClient extends Thread
 					grp = app.contacts.GetGroup(cmd.target.get(0));
 					
 					if (grp != null)
+					{
+						app.mf.Print("-- Group "+grp.name, "help");
 						ListGroup(grp);
+					}
 					else
+					{
 						app.mf.Print("Error: client: unknown reference \""+cmd.target.get(0)+"\"", "error");
+					}
 				}
 			}
 		}
@@ -375,7 +381,7 @@ public class MSTClient extends Thread
 		
 		if (cs > 0)
 		{
-			System.out.println("** Contacts **");
+			app.mf.Print("** Contacts **", "help");
 			
 			for (int i=0; i<cs; i++)
 				PrintContact(grp.GetContact(i));
@@ -383,7 +389,7 @@ public class MSTClient extends Thread
 		
 		if (gs > 0)
 		{
-			System.out.println("\n** Groups **");
+			app.mf.Print("** Groups **", "help");
 
 			for (int i=0; i<gs; i++)
 				PrintGroup(grp.GetGroup(i));
@@ -392,12 +398,12 @@ public class MSTClient extends Thread
 	
 	public void PrintContact(Contact ctt)
 	{
-		System.out.println(String.format("%-20s", ctt.name)+ctt.ipAddress+":"+ctt.port);
+		app.mf.Print(String.format("%-20s", ctt.name)+ctt.ipAddress+":"+ctt.port, "help");
 	}
 	
 	public void PrintGroup(Group grp)
 	{
-		System.out.println(String.format("%-20s", grp.name)+"("+grp.TotalSize()+" contacts)");
+		app.mf.Print(String.format("%-20s", grp.name)+"("+grp.TotalSize()+" contacts)", "help");
 	}
 	
 	public void Help(Command cmd)
@@ -483,5 +489,12 @@ public class MSTClient extends Thread
 					break;
 			}
 		}
+	}
+	
+	public String WhoSentIt(int port)
+	{
+		Contact c = app.contacts.GetContactByPort(port);
+		if (c != null) return c.name;
+		else return "";
 	}
 }
