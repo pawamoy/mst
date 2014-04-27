@@ -1,6 +1,6 @@
 public abstract class Interpreter
 {
-	public static Command StringToCommand(String s)
+	public static Command StringToCommand(String s, MSTMainFrame mf)
 	{
 		Command result = null;
 		CommandType res_type;
@@ -33,7 +33,7 @@ public abstract class Interpreter
 				}
 				else
 				{
-					System.err.println("Error: interpreter: command search needs a contact name");
+					mf.Print("Error: interpreter: command search needs a contact name", "error");
 				}
 				break;
 				
@@ -52,7 +52,7 @@ public abstract class Interpreter
 				}
 				else
 				{
-					System.err.println("Error: interpreter: command broadcast needs text to be send");
+					mf.Print("Error: interpreter: command broadcast needs text to be send", "error");
 				}
 				break;
 				
@@ -100,7 +100,7 @@ public abstract class Interpreter
 				}
 				else
 				{
-					System.err.println("Error: interpreter: command add need at least a name");
+					mf.Print("Error: interpreter: command add need at least a name", "error");
 				}
 				break;
 				
@@ -110,7 +110,7 @@ public abstract class Interpreter
 				if (field.length > 1)
 					result = new Command(CommandType.DELETE, field[1]);
 				else
-					System.err.println("Error: interpreter: command delete need at least a name");
+					mf.Print("Error: interpreter: command delete need at least a name", "error");
 				break;
 				
 			case MODIFY:
@@ -133,12 +133,12 @@ public abstract class Interpreter
 					else
 					{
 						if ( !field[0].isEmpty() )
-							System.err.println("Error: interpreter: message function needs text to be send");						
+							mf.Print("Error: interpreter: message function needs text to be send", "error");						
 					}
 				}
 				else
 				{
-					System.err.println("Error: interpreter: wrong command, please type :help");
+					mf.Print("Error: interpreter: wrong command, please type :help", "error");
 				}
 				break;
 			
