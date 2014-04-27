@@ -23,7 +23,7 @@ run() {
 
 runGUI() {
 	[ -z "$1" ] && { echo "You must specify your name" >&2; exit 1; }
-	[[ "$1" = "--help" || "$1" = "-h" ]] && { java MST $1 | more; return; }
+	[[ "$1" = "--help" || "$1" = "-h" ]] && { java MSTgui $1 | more; return; }
 	echo "Setting up background service"
 	#pkill rmiregistry; pkill java; sleep 0.5
 	rmiregistry $2 & sleep 0.5
@@ -45,8 +45,9 @@ re()
 {
     stop
     mst
-    runGUI thomas
+    runGUI $1
 }
+
 
 case $1 in
 	run) run $2 $3 ;;
@@ -55,7 +56,7 @@ case $1 in
 	clean) clean ;;
 	help) help ;;
 	stop) stop ;;
-    re) re;;
+    re) re $2 ;;
 	"") mst ;;
 	*) help ;;
 esac
