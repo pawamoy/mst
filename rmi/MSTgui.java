@@ -184,7 +184,7 @@ public class MSTgui
 		local_server = new MSTServer(local_client);
 		
 		local_server.start();
-        mainframe.Print("Local server will be ready in "+sleep_msec/1000+"second(s)...", "info");
+        mainframe.Print("Local server will be ready in "+sleep_msec/1000+" second(s) ...", "info");
 		
 		try
 		{
