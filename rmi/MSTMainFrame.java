@@ -41,7 +41,7 @@ public class MSTMainFrame extends JFrame
         
         InitStyles(); 
     }
-  
+
     public JTextField GetTextField()
     {
         return textField;
