@@ -40,7 +40,7 @@ public class MSTgui
         
 			if ( !line.isEmpty() )
 			{
-				cmd = Interpreter.StringToCommand(line);
+				cmd = Interpreter.StringToCommand(line, mainframe);
 				if (cmd != null)
 				{
 					local_client.TreatCommand(cmd);
