@@ -85,4 +85,13 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 		
 		return false;
 	}
+	
+	public int Search(String name) throws RemoteException
+	{
+		Contact c = local_client.app.contacts.GetContact(name);
+		if (c != null)
+			return c.port;
+		else
+			return -1;
+	}
 }
