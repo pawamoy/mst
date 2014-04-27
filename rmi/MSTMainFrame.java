@@ -60,6 +60,9 @@ public class MSTMainFrame extends JFrame
 
         style = textPane.addStyle("received_message", textPane.getStyle("default"));
         StyleConstants.setForeground(style, Color.BLACK);
+        
+        style = textPane.addStyle("help", textPane.getStyle("default"));
+        StyleConstants.setForeground(style, Color.YELLOW);
     }
     
     public void Print(String msg, String style)
