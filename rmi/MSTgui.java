@@ -97,10 +97,20 @@ public class MSTgui
 		// instanciation des données de l'appli (+ lecture carnet d'adresses)
 		AppData app = AppData.getInstance();
 		app.mf = mainframe;
+        
+        mainframe.Print("Welcome " + args[0] + " !", "info");
+        
+        
 		if (user_port != -1)
+        {
+            mainframe.Print("Connected on port " + user_port + ".", "info");
 			app.me = new Contact(args[0], "localhost", user_port);
-		else	
+        }
+		else
+        {	
 			app.me = new Contact(args[0], "localhost");
+        }   
+
 				
 		// simple affichage des contacts et des groupes
 		/*
