@@ -3,6 +3,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.border.*;
+import javax.sound.sampled.*;
+import java.net.URL;
+import java.io.*;
 
 public class MSTMainFrame extends JFrame 
 {
@@ -49,6 +52,9 @@ public class MSTMainFrame extends JFrame
 
     public void InitStyles()
     {
+        MutableAttributeSet attrs = textPane.getInputAttributes();
+        Font font = new Font("Verdana", Font.ITALIC, 20);
+
         Style style = textPane.addStyle("info", textPane.getStyle("default"));
         StyleConstants.setForeground(style, Color.BLUE);
 
@@ -65,6 +71,26 @@ public class MSTMainFrame extends JFrame
         StyleConstants.setForeground(style, Color.ORANGE);
     }
     
+    public void Wizz()
+    {
+          try {
+             // Open an audio input stream.
+             URL url = this.getClass().getClassLoader().getResource("appdata/wizz.wav");
+             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+             // Get a sound clip resource.
+             Clip clip = AudioSystem.getClip();
+             // Open audio clip and load samples from the audio input stream.
+             clip.open(audioIn);
+             clip.start();
+          } catch (UnsupportedAudioFileException e) {
+             e.printStackTrace();
+          } catch (IOException e) {
+             e.printStackTrace();
+          } catch (LineUnavailableException e) {
+             e.printStackTrace();
+          }
+    }
+    
     public void Print(String msg, String style)
     {
         StyledDocument sDoc = (StyledDocument)textPane.getDocument();
@@ -74,5 +100,11 @@ public class MSTMainFrame extends JFrame
             sDoc.insertString(sDoc.getLength(), str, textPane.getStyle(style));
         } 
         catch (BadLocationException e) { }
+        
+        MutableAttributeSet attrs = textPane.getInputAttributes();
+        Font font = new Font("Liberation Mono", Font.PLAIN, 14);
+        StyleConstants.setFontFamily(attrs, font.getFamily());
+        StyleConstants.setFontSize(attrs, font.getSize());
+        sDoc.setCharacterAttributes(0, sDoc.getLength() + 1, attrs, false);
     }
 }
