@@ -17,10 +17,39 @@ public class MSTgui
     private static void createAndShowGUI() 
     {
         mainframe = new MSTMainFrame();
+        
+        mainframe.GetTextField().addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldKeyPressed(evt);
+            }
+        });
  
         //Display the window.
         mainframe.pack();
         mainframe.setVisible(true);
+    }
+    
+    private static void textFieldKeyPressed(java.awt.event.KeyEvent evt) 
+    {
+    // Send command to parser to analyze the sentence.
+        Command cmd;
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            String line = mainframe.GetTextField().getText();
+        
+			if ( !line.isEmpty() )
+			{
+				cmd = Interpreter.StringToCommand(line);
+				if (cmd != null)
+				{
+					local_client.TreatCommand(cmd);
+				}
+			}
+            
+            //~ mainframe.Print("> " + mainframe.GetTextField().getText(), "sent_message");
+            //~ mainframe.GetTextField().setText("");
+        }
     }
     
     private static void InitMST(String[] args)
