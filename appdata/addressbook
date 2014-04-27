@@ -1,4 +1,4 @@
-/* Contact */
+/** Contacts **/
 
 tim2:localhost,1100
 tom1:localhost,1102
@@ -8,7 +8,7 @@ val1:localhost,1105
 val2:localhost,1106
 val3:localhost,1107
 
-/* Groups */
+/** Groups **/
 
 tim:tim2
 tom:tom1,tom2,tom3

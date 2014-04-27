@@ -332,6 +332,7 @@ public class MSTClient extends Thread
 	
 	public void List(Command cmd)
 	{	
+		app.mf.Print("", "help");
 		Contact ctt;
 		Group grp;
 	
@@ -408,84 +409,88 @@ public class MSTClient extends Thread
 	
 	public void Help(Command cmd)
 	{
-		if (cmd.target.isEmpty())
+		app.mf.Print("", "help");
+		
+		int size = cmd.target.size();
+		
+		if (size == 0)
 		{
-			System.out.println("Available commands are:");
-			System.out.println(":help [CMD]               - print this help or detailed command help");
-			System.out.println(":bye,end,stop,quit,q,exit - quit the program");
-			System.out.println(":NOM_CONTACT MSG          - specify which contact to join");
-			System.out.println(":search,seek,who [NOM]    - search someone in friend's contacts");
-			System.out.println(":add NOM [ADR] [PORT]     - add a contact in your book");
-			System.out.println(":delete,del [NOM/ADR]     - delete a contact from your book");
-			System.out.println(":modify,mod [CTT/GRP]     - modify a contact in your book");
-			System.out.println(":list [GRP]               - list a group or properties of a contact");
-			System.out.println(":wizz [CTT/GRP]           - send a wizz to someone");
-			System.out.println(":broadcast,bc MSG         - broadcast a message");
-			System.out.println(":refresh                  - reload address book");
+			app.mf.Print("Available commands are:", "help");
+			app.mf.Print(":help [CMD]               - print this help or detailed command help", "help");
+			app.mf.Print(":bye,end,stop,quit,q,exit - quit the program", "help");
+			app.mf.Print(":NOM_CONTACT MSG          - specify which contact to join", "help");
+			app.mf.Print(":search,seek,who [NOM]    - search someone in friend's contacts", "help");
+			app.mf.Print(":add NOM [ADR] [PORT]     - add a contact in your book", "help");
+			app.mf.Print(":delete,del [NOM/ADR]     - delete a contact from your book", "help");
+			app.mf.Print(":modify,mod [CTT/GRP]     - modify a contact in your book", "help");
+			app.mf.Print(":list [GRP]               - list a group or properties of a contact", "help");
+			app.mf.Print(":wizz [CTT/GRP]           - send a wizz to someone", "help");
+			app.mf.Print(":broadcast,bc MSG         - broadcast a message", "help");
+			app.mf.Print(":refresh                  - reload address book", "help");
 		}
 		else
 		{
 			switch (Interpreter.SwitchType(cmd.target.get(0)))
 			{					
 				case EXIT:
-					System.out.println("Save the address book and quit the program.");
-					System.out.println("Equivalents: exit, quit, q, end, stop, bye.");
+					app.mf.Print("Save the address book and quit the program.", "help");
+					app.mf.Print("Equivalents: exit, quit, q, end, stop, bye.", "help");
 					break;
 					
 				case BROADCAST:
-					System.out.println("Broadcast a message through your contacts and their contacts.");
-					System.out.println("Use like this: :broadcast hi everyone !");
-					System.out.println("Equivalents: broadcast, bc.");
+					app.mf.Print("Broadcast a message through your contacts and their contacts.", "help");
+					app.mf.Print("Use like this: :broadcast hi everyone !", "help");
+					app.mf.Print("Equivalents: broadcast, bc.", "help");
 					break;
 					
 				case SEARCH:
-					System.out.println("Search someone in your contacts' lists.");
-					System.out.println("Use like this: :search someone hey you");
-					System.out.println("If found, added to your book.");
-					System.out.println("If message provided, sended to him/her.");
-					System.out.println("Equivalents: search, seek, who.");
+					app.mf.Print("Search someone in your contacts' lists.", "help");
+					app.mf.Print("Use like this: :search someone hey you", "help");
+					app.mf.Print("If found, added to your book.", "help");
+					app.mf.Print("If message provided, sended to him/her.", "help");
+					app.mf.Print("Equivalents: search, seek, who.", "help");
 					break;
 					
 				case WIZZ:
-					System.out.println("Send a wizz to a contact or a group. Cannot be broadcasted.");
-					System.out.println("Use like this: :wizz someone.");
+					app.mf.Print("Send a wizz to a contact or a group. Cannot be broadcasted.", "help");
+					app.mf.Print("Use like this: :wizz someone.", "help");
 					break;
 					
 				case REFRESH:
-					System.out.println("Reload the address book file.");
+					app.mf.Print("Reload the address book file.", "help");
 					break;
 					
 				case HELP:
-					System.out.println("Show help for the program or a command.");
-					System.out.println("Use like this: :help who.");
+					app.mf.Print("Show help for the program or a command.", "help");
+					app.mf.Print("Use like this: :help who.", "help");
 					break;
 				
 				// a modifier
 				case ADD:
-					System.out.println("Add a contact or a group in your address book.");
-					System.out.println("You have to provide a name, and may provide address and port.");
-					System.out.println("Use like this: :add buddy 100.200.0.1 1100.");
+					app.mf.Print("Add a contact or a group in your address book.", "help");
+					app.mf.Print("You have to provide a name, and may provide address and port.", "help");
+					app.mf.Print("Use like this: :add buddy 100.200.0.1 1100.", "help");
 					break;
 					
 				case DELETE:
-					System.out.println("Delete a contact or group from your address book.");
-					System.out.println("Use like this: :delete badguy.");
-					System.out.println("Equivalents: delete, del.");
+					app.mf.Print("Delete a contact or group from your address book.", "help");
+					app.mf.Print("Use like this: :delete badguy.", "help");
+					app.mf.Print("Equivalents: delete, del.", "help");
 					break;
 				
 				case LIST:
-					System.out.println("List contacts in a group, or properties of a contact.");
+					app.mf.Print("List contacts in a group, or properties of a contact.", "help");
 					break;
 					
 				// a modifier
 				case MODIFY:
-					System.out.println("Modify name, address and/or port of a contact, or name of a group.");
-					System.out.println("Equivalents: modify, mod.");
+					app.mf.Print("Modify name, address and/or port of a contact, or name of a group.", "help");
+					app.mf.Print("Equivalents: modify, mod.", "help");
 					break;
 				
 				case MESSAGE:
 				default:
-					System.err.println("Error: help: unknow command \""+cmd.target+"\"");
+					app.mf.Print("Error: help: unknown command \""+cmd.target.get(0)+"\"", "error");
 					break;
 			}
 		}
