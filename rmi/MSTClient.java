@@ -47,6 +47,10 @@ public class MSTClient extends Thread
 			//~ }
 		//~ }
 		
+        loop = true;
+        
+        while (loop == true) { };
+        
 		/*
 		 * Application client terminée
 		 */
