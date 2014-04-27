@@ -141,6 +141,8 @@ public class MSTClient extends Thread
 		int ntarg = cmd.NbTarget();
 		String targ;
 		boolean err = false;
+		boolean send_ok = true;
+		boolean send_atleast1 = false;
 		
 		if (ntarg == 0)
 		{
@@ -156,9 +158,11 @@ public class MSTClient extends Thread
 					
 				for (int i=0; i<ncurc; i++)
 				{
-					if (app.toAll == false)
+					send_ok = SendMessage(app.cur_con.get(i), cmd.args);
+					send_atleast1 |= send_ok;
+					
+					if (app.toAll == false && send_ok == true)
 						atWho = atWho.concat("@"+app.cur_con.get(i).name+" ");
-					SendMessage(app.cur_con.get(i), cmd.args);
 				}
 			}
 			else
@@ -176,7 +180,7 @@ public class MSTClient extends Thread
 					ArrayList<Contact> group_ctt = app.cur_grp.get(j).GetAllContacts();
 				
 					for (int i=0; i<group_ctt.size(); i++)
-						SendMessage(group_ctt.get(i), cmd.args);
+						send_atleast1 |= SendMessage(group_ctt.get(i), cmd.args);
 				}
 			}
 			else
@@ -205,7 +209,7 @@ public class MSTClient extends Thread
 					atWho = atWho.concat("@all ");
 					for (int i=0; i<app.contacts.ContactSize(); i++)
 					{
-						SendMessage(app.contacts.GetContact(i), cmd.args);
+						send_atleast1 |= SendMessage(app.contacts.GetContact(i), cmd.args);
 						app.toAll = true;
 						app.cur_con.add(app.contacts.GetContact(i));
 					}
@@ -213,7 +217,8 @@ public class MSTClient extends Thread
 				else if (targ.compareTo("me") == 0)
 				{
 					atWho = atWho.concat("@me ");
-					SendMessage(app.me, cmd.args);
+					send_ok = SendMessage(app.me, cmd.args);
+					send_atleast1 |= send_ok;
 					app.cur_con.add(app.me);
 				}
 				else
@@ -222,8 +227,10 @@ public class MSTClient extends Thread
 					
 					if (ctt != null)
 					{
-						atWho = atWho.concat("@"+ctt.name+" ");
-						SendMessage(ctt, cmd.args);
+						send_ok = SendMessage(ctt, cmd.args);
+						send_atleast1 |= send_ok;
+						if (send_ok == true)
+							atWho = atWho.concat("@"+ctt.name+" ");
 						app.cur_con.add(ctt);
 					}
 					else
@@ -236,7 +243,7 @@ public class MSTClient extends Thread
 							ArrayList<Contact> group_ctt = grp.GetAllContacts();
 							
 							for (int i=0; i<group_ctt.size(); i++)
-								SendMessage(group_ctt.get(i), cmd.args);
+								send_atleast1 |= SendMessage(group_ctt.get(i), cmd.args);
 						
 							app.cur_grp.add(grp);
 						}
@@ -267,7 +274,7 @@ public class MSTClient extends Thread
 		}
 	}
 	
-	public void SendMessage(Contact ctt, String msg)
+	public boolean SendMessage(Contact ctt, String msg)
 	{
 		if (ctt.comm == null)
 		{
@@ -279,12 +286,15 @@ public class MSTClient extends Thread
 			try
 			{
 				ctt.comm.Message(msg);
+				return true;
 			}
 			catch (RemoteException re)
 			{
 				app.mf.Print("Error: client: " + re.getMessage(), "error");
+				return false;
 			}
 		}
+		return false;
 	}
 	
 	public void ExitClient()
