@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.border.*;
 
 public class MSTMainFrame extends JFrame 
 {
@@ -18,13 +19,17 @@ public class MSTMainFrame extends JFrame
     
     //Instanciation d'un objet JPanel
     JPanel pan = new JPanel();
-    pan.setBounds(50, 630, 50, 390);
+    pan.setBorder(new EmptyBorder(10, 10, 10, 10) );
     pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
     
     textPane = new JTextPane();
+    textPane.setBorder(new EmptyBorder(10, 10, 10, 10) );
     pan.add(textPane);
     
-    textField = new JTextField();
+    textField = new JTextField(8);
+    textField.setMaximumSize(
+        new Dimension(Integer.MAX_VALUE,
+        textField.getPreferredSize().height));
     pan.add(textField);
        
     //On prévient notre JFrame que notre JPanel sera son content pane
