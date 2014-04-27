@@ -21,6 +21,16 @@ run() {
 	#pkill rmiregistry; pkill java
 }
 
+runGUI() {
+	[ -z "$1" ] && { echo "You must specify your name" >&2; exit 1; }
+	[[ "$1" = "--help" || "$1" = "-h" ]] && { java MST $1 | more; return; }
+	echo "Setting up background service"
+	#pkill rmiregistry; pkill java; sleep 0.5
+	rmiregistry $2 & sleep 0.5
+	java MSTgui $*
+	#pkill rmiregistry; pkill java
+}
+
 stop() {
 	pkill rmiregistry
 	pkill java
@@ -31,12 +41,21 @@ clean() {
 	/bin/rm -f *~ *.class
 }
 
+re()
+{
+    stop
+    mst
+    runGUI thomas
+}
+
 case $1 in
 	run) run $2 $3 ;;
+    runGUI) runGUI $2 $3;;
 	mst) mst ;;
 	clean) clean ;;
 	help) help ;;
 	stop) stop ;;
+    re) re;;
 	"") mst ;;
 	*) help ;;
 esac
