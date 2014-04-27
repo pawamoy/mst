@@ -1,7 +1,7 @@
 #/bin/bash
 
 help() {
-	echo "usage: $0 [help | mst | run NAME [PORT] | stop | clean]"
+	echo "usage: $0 [help | mst | clean]"
 }
 
 mst() {
@@ -11,52 +11,17 @@ mst() {
 	rmic Communication
 }
 
-run() {
-	[ -z "$1" ] && { echo "You must specify your name" >&2; exit 1; }
-	[[ "$1" = "--help" || "$1" = "-h" ]] && { java MST $1 | more; return; }
-	echo "Setting up background service"
-	#pkill rmiregistry; pkill java; sleep 0.5
-	rmiregistry $2 & sleep 0.5
-	java MST $*
-	#pkill rmiregistry; pkill java
-}
-
-runGUI() {
-	[ -z "$1" ] && { echo "You must specify your name" >&2; exit 1; }
-	[[ "$1" = "--help" || "$1" = "-h" ]] && { java MSTgui $1 | more; return; }
-	echo "Setting up background service"
-	#pkill rmiregistry; pkill java; sleep 0.5
-	rmiregistry $2 & sleep 0.5
-	java MSTgui $*
-	kill $(ps | grep rmi | cut -d' ' -f2)
-}
-
-stop() {
+clean() {
 	pkill rmiregistry
 	pkill java
-}
-
-clean() {
 	echo /bin/rm -f *~ *.class
 	/bin/rm -f *~ *.class
 }
 
-re()
-{
-    stop
-    mst
-    runGUI $1
-}
-
-
 case $1 in
-	run) run $2 $3 ;;
-    runGUI) runGUI $2 $3;;
 	mst) mst ;;
 	clean) clean ;;
 	help) help ;;
-	stop) stop ;;
-    re) re $2 ;;
 	"") mst ;;
 	*) help ;;
 esac
