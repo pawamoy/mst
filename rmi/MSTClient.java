@@ -148,7 +148,7 @@ public class MSTClient extends Thread
         }
         else
         {
-            ctt = app.contacts.GetContact(cmd.target.get(0));
+            Contact ctt = app.contacts.GetContact(cmd.target.get(0));
                 
             if (ctt != null)
             {
@@ -157,7 +157,7 @@ public class MSTClient extends Thread
             }
             else
             {
-                grp = app.contacts.GetGroup(cmd.target.get(0));
+                Group grp = app.contacts.GetGroup(cmd.target.get(0));
                 
                 if (grp != null)
                 {
