@@ -133,22 +133,45 @@ public class MSTClient extends Thread
 	
 	public void Message(Command cmd)
 	{
-		if (cmd.target.isEmpty())
+		String atWho = "";
+		int ntarg = cmd.NbTarget();
+		
+		if (ntarg == 0)
 		{
 			boolean no_previous_contact = false;
 			boolean no_previous_group = false;
 			
-			if (app.cur_con != null)
-				SendMessage(app.cur_con, cmd.args);
-			else
-				no_previous_contact = true;
-				
-			if (app.cur_grp != null)
+			int ncurc = app.cur_con.size();
+			
+			if (ncurc > 0)
 			{
-				ArrayList<Contact> group_ctt = app.cur_grp.GetAllContacts();
-						
-				for (int i=0; i<group_ctt.size(); i++)
-					SendMessage(group_ctt.get(i), cmd.args);
+				if (app.toAll == true)
+					atWho = atWho.concat("@all ");
+					
+				for (int i=0; i<ncurc; i++)
+				{
+					if (app.toAll == false)
+						atWho = atWho.concat("@"+app.cur_con.get(i).name+" ");
+					SendMessage(app.cur_con.get(i), cmd.args);
+				}
+			}
+			else
+			{
+				no_previous_contact = true;
+			}
+			
+			int ncurg = app.cur_grp.size();
+				
+			if (ncurg > 0)
+			{
+				for (int j=0; j<ncurg; j++)
+				{
+					atWho = atWho.concat("@"+app.cur_grp.get(j).name+" ");
+					ArrayList<Contact> group_ctt = app.cur_grp.get(j).GetAllContacts();
+				
+					for (int i=0; i<group_ctt.size(); i++)
+						SendMessage(group_ctt.get(i), cmd.args);
+				}
 			}
 			else
 			{
@@ -160,49 +183,58 @@ public class MSTClient extends Thread
 		}
 		else
 		{
-			if (cmd.target.compareTo("all") == 0)
+			app.toAll = false;
+			app.cur_grp.clear();
+			app.cur_con.clear();
+		
+			for (int j=0; j<ntarg; j++)
 			{
-				for (int i=0; i<app.contacts.ContactSize(); i++)
-					SendMessage(app.contacts.GetContact(i), cmd.args);
-					
-				//~ app.cur_grp = app.contacts;
-				//~ app.cur_con = null;
-			}
-			else if (cmd.target.compareTo("me") == 0)
-			{
-				SendMessage(app.me, cmd.args);
+				String targ = cmd.GetTarget(j);
 				
-				app.cur_grp = null;
-				app.cur_con = app.me;
-			}
-			else
-			{
-				Contact ctt = app.contacts.GetContact(cmd.target);
-				
-				if (ctt != null)
+				if (targ.compareTo("all") == 0)
 				{
-					SendMessage(ctt, cmd.args);
-					
-					app.cur_grp = null;
-					app.cur_con = ctt;
+					atWho = atWho.concat("@all ");
+					for (int i=0; i<app.contacts.ContactSize(); i++)
+					{
+						SendMessage(app.contacts.GetContact(i), cmd.args);
+						app.toAll = true;
+						app.cur_con.add(app.contacts.GetContact(i));
+					}
+				}
+				else if (targ.compareTo("me") == 0)
+				{
+					atWho = atWho.concat("@me ");
+					SendMessage(app.me, cmd.args);
+					app.cur_con.add(app.me);
 				}
 				else
 				{
-					Group grp = app.contacts.GetGroup(cmd.target);
+					Contact ctt = app.contacts.GetContact(targ);
 					
-					if (grp != null)
+					if (ctt != null)
 					{
-						ArrayList<Contact> group_ctt = grp.GetAllContacts();
-						
-						for (int i=0; i<group_ctt.size(); i++)
-							SendMessage(group_ctt.get(i), cmd.args);
-					
-						app.cur_con = null;
-						app.cur_grp = grp;
+						atWho = atWho.concat("@"+ctt.name+" ");
+						SendMessage(ctt, cmd.args);
+						app.cur_con.add(ctt);
 					}
 					else
 					{
-						System.err.println("Error: client: unknown reference \""+cmd.target+"\"");
+						Group grp = app.contacts.GetGroup(targ);
+						
+						if (grp != null)
+						{
+							atWho = atWho.concat("@"+grp.name+" ");
+							ArrayList<Contact> group_ctt = grp.GetAllContacts();
+							
+							for (int i=0; i<group_ctt.size(); i++)
+								SendMessage(group_ctt.get(i), cmd.args);
+						
+							app.cur_grp.add(grp);
+						}
+						else
+						{
+							System.err.println("Error: client: unknown reference \""+targ+"\"");
+						}
 					}
 				}
 			}
@@ -278,19 +310,21 @@ public class MSTClient extends Thread
 		Contact ctt;
 		Group grp;
 	
-		if (cmd.target.isEmpty())
+		int ntarg = cmd.target.size();
+		
+		if (ntarg == 0)
 		{			
 			ListGroup(app.contacts);
 		}
 		else
 		{
-			if (cmd.target.compareTo("me") == 0)
+			if (cmd.target.get(0).compareTo("me") == 0)
 			{
 				PrintContact(app.me);
 			}
 			else
 			{
-				ctt = app.contacts.GetContact(cmd.target);
+				ctt = app.contacts.GetContact(cmd.target.get(0));
 					
 				if (ctt != null)
 				{
@@ -298,12 +332,12 @@ public class MSTClient extends Thread
 				}
 				else
 				{
-					grp = app.contacts.GetGroup(cmd.target);
+					grp = app.contacts.GetGroup(cmd.target.get(0));
 					
 					if (grp != null)
 						ListGroup(grp);
 					else
-						System.err.println("Error: client: unknown reference \""+cmd.target+"\"");
+						System.err.println("Error: client: unknown reference \""+cmd.target.get(0)+"\"");
 				}
 			}
 		}
@@ -360,7 +394,7 @@ public class MSTClient extends Thread
 		}
 		else
 		{
-			switch (Interpreter.SwitchType(cmd.target))
+			switch (Interpreter.SwitchType(cmd.target.get(0)))
 			{					
 				case EXIT:
 					System.out.println("Save the address book and quit the program.");

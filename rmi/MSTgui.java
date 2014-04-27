@@ -66,6 +66,7 @@ public class MSTgui
 		
 		// instanciation des données de l'appli (+ lecture carnet d'adresses)
 		AppData app = AppData.getInstance();
+		app.mf = mainframe;
 		if (user_port != -1)
 			app.me = new Contact(args[0], "localhost", user_port);
 		else	

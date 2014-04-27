@@ -155,8 +155,15 @@ public abstract class AddressBook
 	public static boolean IllegalCharacter(String s)
 	{
 		return (
-			s.contains(":") ||
 			s.contains(",") ||
+			ContainsDPOrSlash(s)
+		);
+	}
+	
+	public static boolean ContainsDPOrSlash(String s)
+	{
+		return (
+			s.contains(":") ||
 			s.contains("/")
 		);
 	}
