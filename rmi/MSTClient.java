@@ -118,12 +118,17 @@ public class MSTClient extends Thread
 				break;
 				
 			case DELETE:
-				//~ Delete(cmd);
+				Delete(cmd);
 				break;
 				
 			case MODIFY:
 				//~ Modify(cmd);
 				break;
+                
+            case NICKNAME:
+                app.me.name = cmd.target.get(0);
+                app.mf.Print("You are now known as " + app.me.name, "info");
+                break;
 				
 			case LIST:
 				List(cmd);
@@ -134,6 +139,38 @@ public class MSTClient extends Thread
 				break;
 		}
 	}
+    
+    public void Delete(Command cmd)
+    {
+        if (cmd.target.get(0).compareTo("me") == 0)
+        {
+            app.mf.Print("Are you dumb ?!", "error");
+        }
+        else
+        {
+            ctt = app.contacts.GetContact(cmd.target.get(0));
+                
+            if (ctt != null)
+            {
+                app.mf.Print(ctt.name + "deleted", "info");
+                app.contacts.Del(ctt);
+            }
+            else
+            {
+                grp = app.contacts.GetGroup(cmd.target.get(0));
+                
+                if (grp != null)
+                {
+                    app.mf.Print("-- Group "+grp.name+ " deleted", "info");
+                    app.contacts.Del(grp);
+                }
+                else
+                {
+                    app.mf.Print("Error: client: unknown reference \""+cmd.target.get(0)+"\"", "error");
+                }
+            }
+        }
+    }
 	
 	public void Message(Command cmd)
 	{
