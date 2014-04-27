@@ -139,6 +139,7 @@ public class MSTClient extends Thread
 	{
 		String atWho = "";
 		int ntarg = cmd.NbTarget();
+		String targ;
 		boolean err = false;
 		
 		if (ntarg == 0)
@@ -197,7 +198,7 @@ public class MSTClient extends Thread
 		
 			for (int j=0; j<ntarg; j++)
 			{
-				String targ = cmd.GetTarget(j);
+				targ = cmd.GetTarget(j);
 				
 				if (targ.compareTo("all") == 0)
 				{
@@ -248,6 +249,9 @@ public class MSTClient extends Thread
 				}
 			}
 		}
+		
+		if (err == false)
+			app.mf.Print(atWho+": "+cmd.args, "sent_message");
 	}
 	
 	public CommInterface GetComm(Contact ctt)

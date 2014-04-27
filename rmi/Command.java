@@ -34,7 +34,8 @@ public class Command
 	{
 		type = default_type;
 		this.target = new ArrayList<String>();
-		AddTarget(target);
+		if (!target.isEmpty())
+			AddTarget(target);
 		this.args = args;
 	}
 	
