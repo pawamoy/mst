@@ -300,6 +300,7 @@ public class MSTClient extends Thread
 	public void ExitClient()
 	{
 		loop = false;
+        AddressBook.WriteContacts("../appdata/addressbook", app.contacts);
 	}
 	
 	public void Broadcast(int id, int num, String msg)
