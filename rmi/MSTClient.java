@@ -242,7 +242,7 @@ public class MSTClient extends Thread
 						else
 						{
 							err = true;
-							app.mf.Print("Error: client: unknown reference \""+targ+"\"", "error");
+							app.mf.Print("Error: client: unknown reference \""+cmd.target.get(0)+"\"", "error");
 						}
 					}
 				}
