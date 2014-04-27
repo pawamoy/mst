@@ -1,0 +1,41 @@
+#!/bin/bash
+
+one_try() {
+	rmiregistry $port 2>/dev/null &
+	rmipid=$!
+	sleep 0.5
+	if [ -z "$(ps | grep $rmipid)" ]; then
+		echo "Port already used"
+		return 1
+	fi
+	java MSTgui $nickname $port
+}
+
+multiple_try() {
+	if ! one_try; then
+		echo "Please wait while until a free port is found..."
+		while true; do
+			rmiregistry $port 2>/dev/null &
+			rmipid=$!
+			sleep 0.5
+			[ -n "$(ps | grep $rmipid)" ] && break
+			let port++
+		done
+	fi
+	echo "Chosen port: $port"
+	java MSTgui $nickname $port
+}
+
+# vérifications
+[ -z "$1" ] && { echo "You must specify your name" >&2; exit 1; }
+[[ "$1" = "--help" || "$1" = "-h" ]] && { java MST $1 | more; exit; }
+
+# lancement
+nickname=$1
+port=${2:-1099}
+echo "Setting up background service"
+multiple_try
+
+# arrêt rmiregistry
+[ -n "$rmipid" ] && kill $rmipid
+

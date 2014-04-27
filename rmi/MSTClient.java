@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class MSTClient extends Thread
 {	
 	public static AppData app;
-	private volatile boolean loop;
 	private int num_bc;
 	
 	public MSTClient(AppData a)
@@ -23,37 +22,7 @@ public class MSTClient extends Thread
 	
 	public void run()
 	{
-		//Command cmd;
-		
-		/*
-		 * Application client à foutre ici
-		 */
-		 
-		//~ String line = "";
-		//~ Scanner sc = new Scanner(System.in);
-		//~ 
-		//~ loop = true;
-		//~ 
-		//~ while (loop == true) {
-			//~ System.out.print("> ");
-			//~ line = sc.nextLine();
-			//~ if ( !line.isEmpty() )
-			//~ {
-				//~ cmd = Interpreter.StringToCommand(line);
-				//~ if (cmd != null)
-				//~ {
-					//~ TreatCommand(cmd);
-				//~ }
-			//~ }
-		//~ }
-		
-        loop = true;
-        
-        while (loop == true) { };
-        
-		/*
-		 * Application client terminée
-		 */
+		// rien à mettre ici
 	}
 	
     public static CommInterface GetCommInterface(String name, String host, int port)
@@ -114,7 +83,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case ADD:
-				Add(cmd);
+				//~ Add(cmd);
 				break;
 				
 			case DELETE:
@@ -142,7 +111,7 @@ public class MSTClient extends Thread
     
     public void Wizz(Command cmd)
     {
-        if (AddressBook.MatchKeyword(cmd.target.get(0))
+        if (AddressBook.MatchKeyword(cmd.target.get(0)))
 		{
 			app.mf.Print("Error: cannot wizz with app reserved keyword", "error");
 		}
@@ -164,7 +133,7 @@ public class MSTClient extends Thread
     
     public void Delete(Command cmd)
     {
-        if (AddressBook.MatchKeyword(cmd.target.get(0))
+        if (AddressBook.MatchKeyword(cmd.target.get(0)))
 		{
 			app.mf.Print("Error: cannot delete with app reserved keyword", "error");
 		}
@@ -381,7 +350,6 @@ public class MSTClient extends Thread
 	
 	public void ExitClient()
 	{
-		loop = false;
         AddressBook.WriteContacts("../appdata/addressbook", app.contacts);
         System.exit(0);
 	}
@@ -587,9 +555,11 @@ public class MSTClient extends Thread
 	
 	public void Search(Command cmd)
 	{	
-		int new_id;
+		Contact ctt;
+		Group grp;
+		int new_id = -1;
 		
-		if (AddressBook.MatchKeyword(cmd.target.get(0))
+		if (AddressBook.MatchKeyword(cmd.target.get(0)))
 		{
 			app.mf.Print("Error: cannot search for app reserved keyword", "error");
 		}
@@ -615,10 +585,14 @@ public class MSTClient extends Thread
 					
 					for (int i=0; i<app.contacts.ContactSize(); i++)
 					{
-						if ((new_id = SendSearch(app.contacts.GetContact(i), cmd.args)) != -1)
+						new_id = SendSearch(app.contacts.GetContact(i), cmd.target.get(0));
+						if (new_id != -1)
 						{
 							app.mf.Print("Contact found !", "info");
-							app.contacts.Add(new Contact(cmd.target.get(0), "localhost", new_id));
+							Contact new_contact = new Contact(cmd.target.get(0), "localhost", new_id);
+							app.contacts.Add(new_contact);
+							if (SendMessage(new_contact, cmd.args) == true)
+								app.mf.Print("@"+new_contact.name+": "+cmd.args, "sent_message");
 							break;
 						}
 					}
@@ -630,8 +604,10 @@ public class MSTClient extends Thread
 		}
 	}
 	
-	public boolean SendSearch(Contact ctt, String msg)
+	public int SendSearch(Contact ctt, String search)
 	{
+		int result;
+		
 		if (ctt.comm == null)
 		{
 			ctt.comm = GetComm(ctt);
@@ -641,15 +617,15 @@ public class MSTClient extends Thread
 		{
 			try
 			{
-				ctt.comm.Message(msg, app.me.port);
-				return true;
+				result = ctt.comm.Search(search);
+				return result;
 			}
 			catch (RemoteException re)
 			{
 				app.mf.Print("Error: rmi: unable to join "+ctt.name, "error");
-				return false;
+				return -1;
 			}
 		}
-		return false;
+		return -1;
 	}
 }
