@@ -98,7 +98,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case SEARCH:
-				//~ Search(cmd);
+				Search(cmd);
 				break;
 				
 			case WIZZ:
@@ -142,10 +142,10 @@ public class MSTClient extends Thread
     
     public void Wizz(Command cmd)
     {
-        if (cmd.target.get(0).compareTo("me") == 0)
-        {
-            app.mf.Print("Are you dumb ?!", "error");
-        }
+        if (AddressBook.MatchKeyword(cmd.target.get(0))
+		{
+			app.mf.Print("Error: cannot wizz with app reserved keyword", "error");
+		}
         else
         {
             Contact ctt = app.contacts.GetContact(cmd.target.get(0));
@@ -164,10 +164,10 @@ public class MSTClient extends Thread
     
     public void Delete(Command cmd)
     {
-        if (cmd.target.get(0).compareTo("me") == 0)
-        {
-            app.mf.Print("Are you dumb ?!", "error");
-        }
+        if (AddressBook.MatchKeyword(cmd.target.get(0))
+		{
+			app.mf.Print("Error: cannot delete with app reserved keyword", "error");
+		}
         else
         {
             Contact ctt = app.contacts.GetContact(cmd.target.get(0));
@@ -583,5 +583,73 @@ public class MSTClient extends Thread
 		Contact c = app.contacts.GetContactByPort(port);
 		if (c != null) return c.name;
 		else return "";
+	}
+	
+	public void Search(Command cmd)
+	{	
+		int new_id;
+		
+		if (AddressBook.MatchKeyword(cmd.target.get(0))
+		{
+			app.mf.Print("Error: cannot search for app reserved keyword", "error");
+		}
+		else
+		{
+			ctt = app.contacts.GetContact(cmd.target.get(0));
+				
+			if (ctt != null)
+			{
+				app.mf.Print("This contact already exists in your list", "info");
+			}
+			else
+			{
+				grp = app.contacts.GetGroup(cmd.target.get(0));
+				
+				if (grp != null)
+				{
+					app.mf.Print("You already have a group using this name, please change it before retry", "info");
+				}
+				else
+				{
+					app.mf.Print("Searching contact \""+cmd.target.get(0)+"\"...", "info");
+					
+					for (int i=0; i<app.contacts.ContactSize(); i++)
+					{
+						if ((new_id = SendSearch(app.contacts.GetContact(i), cmd.args)) != -1)
+						{
+							app.mf.Print("Contact found !", "info");
+							app.contacts.Add(new Contact(cmd.target.get(0), "localhost", new_id));
+							break;
+						}
+					}
+					
+					if (new_id == -1)
+						app.mf.Print("Contact not found...", "info");
+				}
+			}
+		}
+	}
+	
+	public boolean SendSearch(Contact ctt, String msg)
+	{
+		if (ctt.comm == null)
+		{
+			ctt.comm = GetComm(ctt);
+		}
+		
+		if (ctt.comm != null)
+		{
+			try
+			{
+				ctt.comm.Message(msg, app.me.port);
+				return true;
+			}
+			catch (RemoteException re)
+			{
+				app.mf.Print("Error: rmi: unable to join "+ctt.name, "error");
+				return false;
+			}
+		}
+		return false;
 	}
 }
