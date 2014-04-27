@@ -26,17 +26,16 @@ public class MSTMainFrame extends JFrame
     
     textField = new JTextField();
     pan.add(textField);
-    
-    textField.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyPressed(java.awt.event.KeyEvent evt) {
-            textFieldKeyPressed(evt);
-        }
-    });
        
     //On prévient notre JFrame que notre JPanel sera son content pane
     this.setContentPane(pan); 
     
     InitStyles(); 
+  }
+  
+  public JTextField GetTextField()
+  {
+      return textField;
   }
   
   public void InitStyles()
@@ -49,18 +48,10 @@ public class MSTMainFrame extends JFrame
         
         Style SentMessageStyle = textPane.addStyle("sent_message", textPane.getStyle("default"));
         StyleConstants.setForeground(SentMessageStyle, Color.GREEN);
-  }
-  
-    private void textFieldKeyPressed(java.awt.event.KeyEvent evt) 
-    {
-    // Send command to parser to analyze the sentence.
         
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-        {
-            Print("> " + textField.getText(), "sent_message");
-            textField.setText("");
-        }
-    }
+        Style SentMessageStyle = textPane.addStyle("received_message", textPane.getStyle("default"));
+        StyleConstants.setForeground(SentMessageStyle, Color.BLACK);
+  }
     
     public void Print(String msg, String style)
     {
