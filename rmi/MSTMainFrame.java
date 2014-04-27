@@ -6,6 +6,8 @@ import javax.swing.border.*;
 import javax.sound.sampled.*;
 import java.net.URL;
 import java.io.*;
+import java.net.*;
+import java.applet.*;
 
 public class MSTMainFrame extends JFrame 
 {
@@ -73,23 +75,16 @@ public class MSTMainFrame extends JFrame
     
     public void Wizz()
     {
-        Print("sound played", "info");
-          try {
-             // Open an audio input stream.
-             URL url = this.getClass().getClassLoader().getResource("appdata/wizz.wav");
-             AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
-             // Get a sound clip resource.
-             Clip clip = AudioSystem.getClip();
-             // Open audio clip and load samples from the audio input stream.
-             clip.open(audioIn);
-             clip.start();
-          } catch (UnsupportedAudioFileException e) {
-             e.printStackTrace();
-          } catch (IOException e) {
-             e.printStackTrace();
-          } catch (LineUnavailableException e) {
-             e.printStackTrace();
-          }
+        try 
+        {
+            File f = new File("../appdata/wizz.wav");
+            AudioClip clip = Applet.newAudioClip(new URL("file://"+ f.getAbsolutePath()));
+            clip.play();
+        } 
+        catch (MalformedURLException murle) 
+        {
+            System.out.println(murle);
+        }
     }
     
     public void Print(String msg, String style)
