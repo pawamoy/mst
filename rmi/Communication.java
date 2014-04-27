@@ -32,8 +32,17 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 	
 	public boolean Message(String msg, int id) throws RemoteException
 	{
-		//String sender = local_client.WhoSendIt(id);
-        local_client.app.mf.Print(msg, "received_message");
+		String print = "> ";
+		String unknown = "?";
+		print = print.concat(msg);
+		
+		String sender = local_client.WhoSentIt(id);
+		if ( !sender.isEmpty() )
+			print = sender.concat(print);
+		else
+			print = unknown.concat(print);
+			
+        local_client.app.mf.Print(print, "received_message");
 		return true;
 	}
 	
