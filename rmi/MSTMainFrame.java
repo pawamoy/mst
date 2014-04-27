@@ -19,7 +19,7 @@ public class MSTMainFrame extends JFrame
         
         //Instanciation d'un objet JPanel
         JPanel pan = new JPanel();
-        pan.setBorder(new EmptyBorder(10, 10, 10, 10) );s
+        pan.setBorder(new EmptyBorder(10, 10, 10, 10) );
         pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
         
         textPane = new JTextPane();
