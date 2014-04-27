@@ -8,7 +8,7 @@ public class AppData
 	
 	protected AppData()
 	{
-        contacts = AddressBook.ReadContacts("appdata/addressbook");
+        contacts = AddressBook.ReadContacts("../appdata/addressbook");
 	}
     
 	public static AppData getInstance()
