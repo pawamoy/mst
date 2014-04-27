@@ -44,8 +44,8 @@ public class MSTgui
 				if (cmd != null)
 				{
 					local_client.TreatCommand(cmd);
-                    mainframe.GetTextField().setText("");
 				}
+                mainframe.GetTextField().setText("");
 			}
             
             //~ mainframe.Print("> " + mainframe.GetTextField().getText(), "sent_message");
