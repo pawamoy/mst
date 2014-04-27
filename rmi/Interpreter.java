@@ -241,17 +241,3 @@ public abstract class Interpreter
 			return CommandType.MESSAGE;
 	}
 }
-	
-
-/*
- * TODO: autoriser les combinaison de commande:
- * :bc      [:wizz]    = :bc :wizz
- */
- 
-/*
- * TODO: permettre de bloquer des identifiants / adresses
- */
- 
-/*
- * TODO: ajouter une commande pour l'envoi de fichier (style :file FICHIER)
- */

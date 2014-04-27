@@ -28,7 +28,7 @@ runGUI() {
 	#pkill rmiregistry; pkill java; sleep 0.5
 	rmiregistry $2 & sleep 0.5
 	java MSTgui $*
-	#pkill rmiregistry; pkill java
+	kill $(ps | grep rmi | cut -d' ' -f2)
 }
 
 stop() {
