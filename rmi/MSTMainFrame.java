@@ -40,17 +40,17 @@ public class MSTMainFrame extends JFrame
   
   public void InitStyles()
   {
-        Style InfoStyle = textPane.addStyle("info", textPane.getStyle("default"));
-        StyleConstants.setForeground(InfoStyle, Color.BLUE);
+        Style style = textPane.addStyle("info", textPane.getStyle("default"));
+        StyleConstants.setForeground(style, Color.BLUE);
         
-        Style ErrorStyle = textPane.addStyle("error", textPane.getStyle("default"));
-        StyleConstants.setForeground(ErrorStyle, Color.RED);
+        style = textPane.addStyle("error", textPane.getStyle("default"));
+        StyleConstants.setForeground(style, Color.RED);
         
-        Style SentMessageStyle = textPane.addStyle("sent_message", textPane.getStyle("default"));
-        StyleConstants.setForeground(SentMessageStyle, Color.GREEN);
+        style = textPane.addStyle("sent_message", textPane.getStyle("default"));
+        StyleConstants.setForeground(style, Color.GREEN);
         
-        Style SentMessageStyle = textPane.addStyle("received_message", textPane.getStyle("default"));
-        StyleConstants.setForeground(SentMessageStyle, Color.BLACK);
+        style = textPane.addStyle("received_message", textPane.getStyle("default"));
+        StyleConstants.setForeground(style, Color.BLACK);
   }
     
     public void Print(String msg, String style)
