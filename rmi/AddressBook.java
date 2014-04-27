@@ -206,6 +206,10 @@ public abstract class AddressBook
 			FileWriter fw = new FileWriter(filename);
             BufferedWriter bw = new BufferedWriter(fw);
 
+			bw.write("/* Contact */");
+			bw.newLine();
+			bw.newLine();
+			
 			for (i=0; i<rg.ContactSize(); i++)
 			{
 				c = rg.GetContact(i);
@@ -213,6 +217,11 @@ public abstract class AddressBook
 				bw.write(c.name+":"+c.ipAddress+","+c.port);
 				bw.newLine();
 			}
+			
+			bw.newLine();
+			bw.msg("/* Groups */");
+			bw.newLine();
+			bw.newLine();
 			
 			for (i=0; i<rg.GroupSize(); i++)
 			{
