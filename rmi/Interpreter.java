@@ -72,7 +72,7 @@ public abstract class Interpreter
 				if (field.length > 1)			
 					result = new Command(CommandType.WIZZ, field[1]);
 				else
-					result = new Command(CommandType.WIZZ);
+                    mf.Print("Error: interpreter: a nickname is needed when you wizz someone", "error");
 				break;
 				
 			case LIST:
@@ -106,7 +106,6 @@ public abstract class Interpreter
 				
 			case DELETE:
 				// arg1 = nom du contact / groupe
-				// arg2 = adresse [port]
 				if (field.length > 1)
 					result = new Command(CommandType.DELETE, field[1]);
 				else

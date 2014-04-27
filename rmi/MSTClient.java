@@ -102,7 +102,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case WIZZ:
-				//~ Wizz(cmd);
+				Wizz(cmd);
 				break;
 				
 			case REFRESH:
@@ -139,6 +139,28 @@ public class MSTClient extends Thread
 				break;
 		}
 	}
+    
+    public void Wizz(Command cmd)
+    {
+        if (cmd.target.get(0).compareTo("me") == 0)
+        {
+            app.mf.Print("Are you dumb ?!", "error");
+        }
+        else
+        {
+            Contact ctt = app.contacts.GetContact(cmd.target.get(0));
+                
+            if (ctt != null)
+            {
+                if (SendWizz(ctt) == true)
+                    app.mf.Print("You wizzed "+cmd.target.get(0)+"!", "info");
+            }
+            else
+            {
+                app.mf.Print("Error: client: wizz: unknown contact \""+cmd.target.get(0)+"\"", "error");
+            }
+        }
+    }
     
     public void Delete(Command cmd)
     {
@@ -311,6 +333,29 @@ public class MSTClient extends Thread
 		}
 	}
 	
+    public boolean SendWizz(Contact ctt)
+    {
+		if (ctt.comm == null)
+		{
+			ctt.comm = GetComm(ctt);
+		}
+		
+		if (ctt.comm != null)
+		{
+			try
+			{
+				ctt.comm.Wizz(app.me.port);
+				return true;
+			}
+			catch (RemoteException re)
+			{
+				app.mf.Print("Error: rmi: unable to wizz "+ctt.name, "error");
+				return false;
+			}
+		}
+		return false;
+    }
+    
 	public boolean SendMessage(Contact ctt, String msg)
 	{
 		if (ctt.comm == null)
