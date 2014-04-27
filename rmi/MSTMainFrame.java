@@ -6,6 +6,8 @@ import javax.swing.border.*;
 import javax.sound.sampled.*;
 import java.net.URL;
 import java.io.*;
+import java.net.*;
+import java.applet.*;
 
 public class MSTMainFrame extends JFrame 
 {
@@ -73,37 +75,17 @@ public class MSTMainFrame extends JFrame
     
     public void Wizz()
     {
-        //~ Print("sound played", "info");
-          //~ try {
-             //~ // Open an audio input stream.
-             //~ URL url = this.getClass().getClassLoader().getResource("appdata/wizz.wav");
-             //~ AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
-             //~ // Get a sound clip resource.
-             //~ Clip clip = AudioSystem.getClip();
-             //~ // Open audio clip and load samples from the audio input stream.
-             //~ clip.open(audioIn);
-             //~ clip.start();
-          //~ } catch (UnsupportedAudioFileException e) {
-             //~ e.printStackTrace();
-          //~ } catch (IOException e) {
-             //~ e.printStackTrace();
-          //~ } catch (LineUnavailableException e) {
-             //~ e.printStackTrace();
-          //~ }
-          
-Clip clip = AudioSystem.getClip();
-        // getAudioInputStream() also accepts a File or InputStream
-        AudioInputStream ais = AudioSystem.
-            getAudioInputStream( "appdata/wizz.wav" );
-        clip.open(ais);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                // A GUI element to prevent the Clip's daemon Thread
-                // from terminating at the end of the main()
-                JOptionPane.showMessageDialog(null, "Close to exit!");
-            }
-        });
+        try 
+        {
+            File f = new File("../appdata/wizz.wav");
+            AudioClip clip = Applet.newAudioClip(new URL("file://"+ f.getAbsolutePath()));
+            //AudioClip clip = Applet.newAudioClip(new URL("file:///home/tom/S6/SD/ProjetSD/appdata/wizz.wav"));
+            clip.play();
+        } 
+        catch (MalformedURLException murle) 
+        {
+            System.out.println(murle);
+        }
     }
     
     public void Print(String msg, String style)
