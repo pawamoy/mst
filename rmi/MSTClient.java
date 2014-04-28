@@ -675,32 +675,40 @@ public class MSTClient extends Thread
 	{
 		String cont = cmd.target.get(0);
 		String filename = cmd.target.get(1);
+		Contact ctt;
 		
-		Contact ctt = app.contacts.GetContact(cont);
-			
-		if (ctt != null)
+		if ( !AddressBook.MatchKeyword(cont) )
 		{
-			FileInputStream fileInputStream=null;
-			File file = new File(filename);
-			byte[] bFile = new byte[(int) file.length()];
-			
-			try
+			ctt = app.contacts.GetContact(cont);
+				
+			if (ctt != null)
 			{
-				fileInputStream = new FileInputStream(file);
-				fileInputStream.read(bFile);
-				fileInputStream.close();
-		 
-				if (SendFile(ctt , filename, bFile))
-					app.mf.Print("Sending file "+filename+" to "+ctt.name+"...", "info");
+				FileInputStream fileInputStream=null;
+				File file = new File(filename);
+				byte[] bFile = new byte[(int) file.length()];
+				
+				try
+				{
+					fileInputStream = new FileInputStream(file);
+					fileInputStream.read(bFile);
+					fileInputStream.close();
+			 
+					if (SendFile(ctt , filename, bFile))
+						app.mf.Print("Sending file "+filename+" to "+ctt.name+"...", "info");
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}	
 			}
-			catch (Exception e)
+			else
 			{
-				e.printStackTrace();
-			}	
+				app.mf.Print("Error: client: unknown reference \""+cont+"\"", "error");
+			}
 		}
 		else
 		{
-			//erreur
+			app.mf.Print("Error: cannot send a file with app reserved keyword as contact", "error");
 		}
 	}
 	
