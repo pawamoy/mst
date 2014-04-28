@@ -673,20 +673,57 @@ public class MSTClient extends Thread
 	
 	public void File(Command cmd)
 	{
-		FileInputStream fileInputStream=null;
-        File file = new File(cmd.target.get(0));
-        byte[] bFile = new byte[(int) file.length()];
-        
-		try
+		String cont = cmd.target.get(0);
+		String filename = cmd.target.get(1);
+		
+		Contact ctt = app.contacts.GetContact(cont);
+			
+		if (ctt != null)
 		{
-			fileInputStream = new FileInputStream(file);
-			fileInputStream.read(bFile);
-			fileInputStream.close();
-	 
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }	
+			FileInputStream fileInputStream=null;
+			File file = new File(filename);
+			byte[] bFile = new byte[(int) file.length()];
+			
+			try
+			{
+				fileInputStream = new FileInputStream(file);
+				fileInputStream.read(bFile);
+				fileInputStream.close();
+		 
+				if (SendFile(ctt , filename, bFile))
+					app.mf.Print("Sending file "+filename+" to "+ctt.name+"...", "info");
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}	
+		}
+		else
+		{
+			//erreur
+		}
+	}
+	
+	public boolean SendFile(Contact ctt, String name, byte[] bFile)
+	{
+		if (ctt.comm == null)
+		{
+			ctt.comm = GetComm(ctt);
+		}
+		
+		if (ctt.comm != null)
+		{
+			try
+			{
+				ctt.comm.Write(name, bFile);
+				return true;
+			}
+			catch (RemoteException re)
+			{
+				app.mf.Print("Error: rmi: unable to join "+ctt.name, "error");
+				return false;
+			}
+		}
+		return false;
 	}
 }
