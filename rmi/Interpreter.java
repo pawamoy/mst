@@ -127,7 +127,7 @@ public abstract class Interpreter
             case FILE:
                 if (field.length > 2)
                 {
-                    result = new Command(CommandType.FILE, field[2]);
+                    result = new Command(CommandType.FILE, field[1], field[2]);
                 }
 				else
                 {
