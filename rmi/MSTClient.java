@@ -358,6 +358,8 @@ public class MSTClient extends Thread
 	{
 		for (int i=0; i<app.contacts.ContactSize(); i++)
 			SendBroadcast(app.contacts.GetContact(i), msg, id, num);
+			
+		app.mf.Print("You sent the message \""+msg+"\" in broadcast", "info");
 	}
 	
 	public void SendBroadcast(Contact ctt, String msg, int id, int num)
