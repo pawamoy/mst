@@ -67,9 +67,8 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 	{
 		if ( !AlreadyGot(id, num) )
 		{
-			broadcast_ids.add(new BC_MSG(id, num));
+			ReceivedBroadcast(id, num);
 			Message(msg, id);
-			
 			local_client.Broadcast(id, num, msg);
 			return true;
 		}
@@ -84,6 +83,11 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 				return true;
 		
 		return false;
+	}
+	
+	public void ReceivedBroadcast(int id, int num) throws RemoteException
+	{
+		broadcast_ids.add(new BC_MSG(id, num));
 	}
 	
 	public int Search(String name) throws RemoteException
