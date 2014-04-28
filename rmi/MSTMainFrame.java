@@ -17,7 +17,8 @@ public class MSTMainFrame extends JFrame
     public MSTMainFrame()
     {
         this.setTitle("MST");
-        this.setSize(640, 400);
+        this.setSize(640, 480);
+        this.setPreferredSize(new Dimension(640, 480));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);             
         this.setVisible(true);
