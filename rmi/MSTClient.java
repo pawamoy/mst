@@ -361,9 +361,13 @@ public class MSTClient extends Thread
 	
 	public void Broadcast(int id, int num, String msg)
 	{
+/*
+		if (app.me.comm == null)
+			app.me.comm = GetCommInterface(app.me.name, app.me.ipAddress, app.me.port);
 		try {
 			app.me.comm.ReceivedBroadcast(id, num);
 		} catch (RemoteException re) { };
+*/
 		
 		for (int i=0; i<app.contacts.ContactSize(); i++)
 			SendBroadcast(app.contacts.GetContact(i), msg, id, num);
