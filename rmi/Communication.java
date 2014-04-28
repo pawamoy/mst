@@ -103,9 +103,14 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 	public void Write(String name, byte[] bFile) throws RemoteException
 	{
 		try {
+			String decoupage[] = name.split("/");
+			String relative_name = decoupage[decoupage.length-1];
+			//~ String new_name = System.getProperty("user.dir")+"/"+relative_name;
+			String new_name = "../downloads/"+relative_name;
+			
 			//convert array of bytes into file
 			FileOutputStream fileOuputStream = 
-					  new FileOutputStream(name); 
+					  new FileOutputStream(new_name); 
 			fileOuputStream.write(bFile);
 			fileOuputStream.close();
 			
