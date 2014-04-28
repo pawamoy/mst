@@ -21,9 +21,9 @@ multiple_try() {
 			[ -n "$(ps | grep $rmipid)" ] && break
 			let port++
 		done
+		echo "Chosen port: $port"
+		java MSTgui $nickname $port
 	fi
-	echo "Chosen port: $port"
-	java MSTgui $nickname $port
 }
 
 # vérifications
