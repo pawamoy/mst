@@ -674,7 +674,7 @@ public class MSTClient extends Thread
 	public void File(Command cmd)
 	{
 		String cont = cmd.target.get(0);
-		String filename = cmd.target.get(1);
+		String filename = cmd.args;
 		Contact ctt;
 		
 		if ( !AddressBook.MatchKeyword(cont) )
