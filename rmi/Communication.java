@@ -108,6 +108,8 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 					  new FileOutputStream(name); 
 			fileOuputStream.write(bFile);
 			fileOuputStream.close();
+			
+			local_client.app.mf.Print("Received file "+name, "info");
         }
         catch (Exception e)
         {
