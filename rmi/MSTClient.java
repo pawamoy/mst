@@ -640,6 +640,7 @@ public class MSTClient extends Thread
 	{
 		app.contacts.Clear();
 		AddressBook.ReadContacts("../appdata/addressbook");
+		app.mf.Print("Address Book reloaded.", "info");
 	}
 	
 	public void Add(Command cmd)
