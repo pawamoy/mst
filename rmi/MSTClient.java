@@ -143,7 +143,7 @@ public class MSTClient extends Thread
                 
             if (ctt != null)
             {
-                app.mf.Print(ctt.name + "deleted", "info");
+                app.mf.Print("Contact "+ctt.name + " has been deleted", "info");
                 app.contacts.Del(ctt);
             }
             else
