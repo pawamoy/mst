@@ -133,8 +133,7 @@ public abstract class Interpreter
                 {
 					mf.Print("Error: interpreter: :file nickname filename", "error");
                 }
-            
-				
+                break;
 			
 			case MESSAGE:
 				if ( !AddressBook.ContainsDPOrSlash(field[0]) )

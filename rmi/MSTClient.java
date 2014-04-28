@@ -105,7 +105,8 @@ public class MSTClient extends Thread
 				break;
 				
 			case FILE:
-				//~ File(cmd);
+				File(cmd);
+				break;
 				
 			default:
                 app.mf.Print("Error: client: wrong command type (???)", "error");
