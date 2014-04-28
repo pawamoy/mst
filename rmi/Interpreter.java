@@ -123,6 +123,9 @@ public abstract class Interpreter
 					mf.Print("Error: interpreter: command nickname needs the new nickname", "error");
             
                 break;
+                
+            case FILE:
+				
 			
 			case MESSAGE:
 				if ( !AddressBook.ContainsDPOrSlash(field[0]) )
@@ -247,6 +250,8 @@ public abstract class Interpreter
 		else if (c.compareTo("nick") == 0 ||
 			c.compareTo("nickname") == 0)
             return CommandType.NICKNAME;
+        else if (c.compareTo("file") == 0)
+            return CommandType.FILE;
 		else
 			return CommandType.MESSAGE;
 	}
