@@ -661,5 +661,9 @@ public class MSTClient extends Thread
 				app.contacts.Add(c);
 				app.mf.Print("Successfully added contact "+c.name+" at "+c.ipAddress+":"+c.port+" !", "info");
 			}
+		else
+		{
+			app.mf.Print("Error: cannot add with app reserved keyword", "error");
+		}
 	}
 }
