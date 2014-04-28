@@ -147,7 +147,7 @@ public class MST
 	public static void Help()
 	{
 		System.out.println("SYNOPSIS\n\tjava MST <PSEUDO> [PORT]");
-		System.out.println("\nDESCRIPTION\n\tMST (Message Super Top) est un programme de messagerie instantanée, ou Chat.");
+		System.out.println("\nDESCRIPTION\n\tMST (MeSsage Transmitter) est un programme de messagerie instantanée, ou Chat.");
 		System.out.println("\tIl fonctionne en P2P, en utilisant le protocole RMI.");
 		System.out.println("\tIl permet de discuter avec un ou plusieurs contacts (groupes) en même temps,");
 		System.out.println("\tet également de \"diffuser\" des messages (envoi à tous les contacts, qui eux-mêmes");
