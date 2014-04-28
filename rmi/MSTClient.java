@@ -75,7 +75,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case REFRESH:
-				//~ Refresh();
+				Refresh();
 				break;
 				
 			case HELP:
@@ -83,7 +83,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case ADD:
-				//~ Add(cmd);
+				Add(cmd);
 				break;
 				
 			case DELETE:
@@ -627,5 +627,31 @@ public class MSTClient extends Thread
 			}
 		}
 		return -1;
+	}
+	
+	public void Refresh()
+	{
+		app.contacts.Clear();
+		AddressBook.ReadContacts("../appdata/addressbook");
+	}
+	
+	public void Add(Command cmd)
+	{
+		String targ = cmd.target.get(0);
+		String adport[] = cmd.args.split(" ");
+		
+		Contact c;
+		
+		if ( !AddressBook.MatchKeyword(targ) &&
+			 !Interpreter.IllegalCharacter(targ))
+			{
+				if (adport.length > 1)
+					c = new Contact(targ, adport[0], adport[1]);
+				else
+					c = new Contact(targ, adport[0]);
+					
+				app.contacts.Add(c);
+				app.mf.Print("Successfully added contact "+c.name+" at "+c.ipAddress+":"+c.port+" !", "info");
+			}
 	}
 }

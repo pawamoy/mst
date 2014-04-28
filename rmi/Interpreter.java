@@ -94,13 +94,13 @@ public abstract class Interpreter
 						
 					result = new Command(CommandType.ADD, field[1], args);
 				}
-				else if (field.length > 1)
-				{
-					result = new Command(CommandType.ADD, field[1]);
-				}
+				//~ else if (field.length > 1)
+				//~ {
+					//~ result = new Command(CommandType.ADD, field[1]);
+				//~ }
 				else
 				{
-					mf.Print("Error: interpreter: command add need at least a name", "error");
+					mf.Print("Error: interpreter: command add needs a name, and eventually a port", "error");
 				}
 				break;
 				
@@ -109,7 +109,7 @@ public abstract class Interpreter
 				if (field.length > 1)
 					result = new Command(CommandType.DELETE, field[1]);
 				else
-					mf.Print("Error: interpreter: command delete need at least a name", "error");
+					mf.Print("Error: interpreter: command delete needs at least a name", "error");
 				break;
 				
 			case MODIFY:
@@ -120,7 +120,7 @@ public abstract class Interpreter
                 if (field.length > 1)
                     result = new Command(CommandType.NICKNAME, field[1]);
 				else
-					mf.Print("Error: interpreter: command nickname need the new nickname", "error");
+					mf.Print("Error: interpreter: command nickname needs the new nickname", "error");
             
                 break;
 			
