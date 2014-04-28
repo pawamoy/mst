@@ -1,4 +1,5 @@
 import java.rmi.*;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class MSTClient extends Thread
 				break;
 				
 			case FILE:
-				File(cmd);
+				//~ File(cmd);
 				
 			default:
                 app.mf.Print("Error: client: wrong command type (???)", "error");
@@ -672,6 +673,20 @@ public class MSTClient extends Thread
 	
 	public void File(Command cmd)
 	{
-		
+		FileInputStream fileInputStream=null;
+        File file = new File(cmd.target.get(0));
+        byte[] bFile = new byte[(int) file.length()];
+        
+		try
+		{
+			fileInputStream = new FileInputStream(file);
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+	 
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }	
 	}
 }

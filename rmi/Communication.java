@@ -1,6 +1,7 @@
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Communication extends UnicastRemoteObject implements CommInterface
 {
@@ -97,5 +98,20 @@ public class Communication extends UnicastRemoteObject implements CommInterface
 			return c.port;
 		else
 			return -1;
+	}
+	
+	public void Write(String name, byte[] bFile) throws RemoteException
+	{
+		try {
+			//convert array of bytes into file
+			FileOutputStream fileOuputStream = 
+					  new FileOutputStream(name); 
+			fileOuputStream.write(bFile);
+			fileOuputStream.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 	}
 }
