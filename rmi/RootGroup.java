@@ -126,4 +126,10 @@ public class RootGroup
 	{
 		return contacts.size();
 	}
+	
+	public void Clear()
+	{
+		contacts.clear();
+		groups.clear();
+	}
 }
