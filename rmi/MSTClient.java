@@ -593,8 +593,9 @@ public class MSTClient extends Thread
 							app.mf.Print("Contact found !", "info");
 							Contact new_contact = new Contact(cmd.target.get(0), "localhost", new_id);
 							app.contacts.Add(new_contact);
-							if (SendMessage(new_contact, cmd.args) == true)
-								app.mf.Print("@"+new_contact.name+": "+cmd.args, "sent_message");
+							if ( !cmd.args.isEmpty())
+								if (SendMessage(new_contact, cmd.args) == true)
+									app.mf.Print("@"+new_contact.name+": "+cmd.args, "sent_message");
 							break;
 						}
 					}
