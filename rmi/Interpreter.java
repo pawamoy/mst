@@ -125,6 +125,16 @@ public abstract class Interpreter
                 break;
                 
             case FILE:
+                if (field.length > 2)
+                {
+                    result = new Command(CommandType.FILE, field[1]);
+                    result.AddTarget(field[2]);
+                }
+				else
+                {
+					mf.Print("Error: interpreter: :file nickname filename", "error");
+                }
+            
 				
 			
 			case MESSAGE:
