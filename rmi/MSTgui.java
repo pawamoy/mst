@@ -29,9 +29,9 @@ public class MSTgui
         mainframe.setVisible(true);
     }
     
+/// Send command to parser to analyze the sentence.
     private static void textFieldKeyPressed(java.awt.event.KeyEvent evt) 
     {
-    // Send command to parser to analyze the sentence.
         Command cmd;
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER)

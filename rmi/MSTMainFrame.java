@@ -23,7 +23,6 @@ public class MSTMainFrame extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);             
         this.setVisible(true);
         
-        //Instanciation d'un objet JPanel
         JPanel pan = new JPanel();
         pan.setBorder(new EmptyBorder(10, 10, 10, 10) );
         pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
@@ -42,7 +41,6 @@ public class MSTMainFrame extends JFrame
             textField.getPreferredSize().height));
         pan.add(textField);
            
-        //On prévient notre JFrame que notre JPanel sera son content pane
         this.setContentPane(pan); 
         
         InitStyles(); 
@@ -52,7 +50,8 @@ public class MSTMainFrame extends JFrame
     {
         return textField;
     }
-
+    
+///Init style to write colored text in JTextPane
     public void InitStyles()
     {
         MutableAttributeSet attrs = textPane.getInputAttributes();
@@ -74,6 +73,7 @@ public class MSTMainFrame extends JFrame
         StyleConstants.setForeground(style, Color.ORANGE);
     }
     
+///Play a wizz
     public void Wizz()
     {
         try 
@@ -81,13 +81,37 @@ public class MSTMainFrame extends JFrame
             File f = new File("../appdata/wizz.wav");
             AudioClip clip = Applet.newAudioClip(new URL("file://"+ f.getAbsolutePath()));
             clip.play();
+            
+            for (int i = 0; i < 5; i++)
+            {
+				try
+				{
+					int x = this.getX();
+					int y = this.getY();
+					
+					setLocation(x, y);
+					Thread.sleep(20);
+					setLocation(x+30, y);
+					Thread.sleep(20);
+					setLocation(x+30, y-30);
+					Thread.sleep(20);
+					setLocation(x, y);
+					Thread.sleep(20);
+				}
+				catch (InterruptedException e)
+				{
+					Print("error when wizz!", "error");
+				}
+			}
+            
         } 
         catch (MalformedURLException murle) 
         {
             System.out.println(murle);
         }
     }
-    
+
+///Append string with specified style into JTextPane
     public void Print(String msg, String style)
     {
         StyledDocument sDoc = (StyledDocument)textPane.getDocument();
