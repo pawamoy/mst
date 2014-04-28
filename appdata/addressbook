@@ -8,13 +8,11 @@ tom3:localhost,1104
 val1:localhost,1105
 val2:localhost,1106
 val3:localhost,1107
+yeah:localhost,1099
+HEY:localhost,2000
 
 /** Groups **/
 
 tim:tim2
 tom:tom1,tom2,tom3
 val:val1,val2,val3
-poto1:tom1,val1
-poto2:tim2,tom2,val2
-poto3:tom3,val3
-potos:poto1,poto2,poto3

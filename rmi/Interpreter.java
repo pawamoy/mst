@@ -100,7 +100,7 @@ public abstract class Interpreter
 				//~ }
 				else
 				{
-					mf.Print("Error: interpreter: command add needs a name, and eventually a port", "error");
+					mf.Print("Error: interpreter: command add needs a name, an address, and eventually a port", "error");
 				}
 				break;
 				
