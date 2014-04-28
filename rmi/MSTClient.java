@@ -685,21 +685,29 @@ public class MSTClient extends Thread
 			{
 				FileInputStream fileInputStream=null;
 				File file = new File(filename);
-				byte[] bFile = new byte[(int) file.length()];
 				
-				try
+				if (file.exists() && !file.isDirectory())
 				{
-					fileInputStream = new FileInputStream(file);
-					fileInputStream.read(bFile);
-					fileInputStream.close();
-			 
-					if (SendFile(ctt , filename, bFile))
-						app.mf.Print("Sending file "+filename+" to "+ctt.name+"...", "info");
+					byte[] bFile = new byte[(int) file.length()];
+					
+					try
+					{
+						fileInputStream = new FileInputStream(file);
+						fileInputStream.read(bFile);
+						fileInputStream.close();
+				 
+						if (SendFile(ctt , filename, bFile))
+							app.mf.Print("Sending file "+filename+" to "+ctt.name+"...", "info");
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 				}
-				catch (Exception e)
+				else
 				{
-					e.printStackTrace();
-				}	
+					app.mf.Print("Error: uncorrect provided file", "error");
+				}
 			}
 			else
 			{
