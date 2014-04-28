@@ -193,6 +193,7 @@ public abstract class AddressBook
 			s.compareTo("modify")		== 0 ||
 			s.compareTo("nick")		    == 0 ||
 			s.compareTo("nickname")		== 0 ||
+			s.compareTo("file")			== 0 ||
 			s.compareTo("me")			== 0
 		);
 	}

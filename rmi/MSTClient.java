@@ -103,6 +103,9 @@ public class MSTClient extends Thread
 				List(cmd);
 				break;
 				
+			case FILE:
+				File(cmd);
+				
 			default:
                 app.mf.Print("Error: client: wrong command type (???)", "error");
 				break;
@@ -665,5 +668,10 @@ public class MSTClient extends Thread
 		{
 			app.mf.Print("Error: cannot add with app reserved keyword", "error");
 		}
+	}
+	
+	public void File(Command cmd)
+	{
+		
 	}
 }

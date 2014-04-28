@@ -11,5 +11,6 @@ public enum CommandType
 	DELETE,
 	MODIFY,
     NICKNAME,
+    FILE,
 	LIST
 }
