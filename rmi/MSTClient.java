@@ -643,7 +643,7 @@ public class MSTClient extends Thread
 		Contact c;
 		
 		if ( !AddressBook.MatchKeyword(targ) &&
-			 !Interpreter.IllegalCharacter(targ))
+			 !AddressBook.IllegalCharacter(targ))
 			{
 				if (adport.length > 1)
 					c = new Contact(targ, adport[0], adport[1]);
