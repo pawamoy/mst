@@ -8,4 +8,5 @@ public interface CommInterface extends Remote
 	public boolean Broadcast(int id, int num, String msg) throws RemoteException;
 	public int Search(String name) throws RemoteException;
 	public void ReceivedBroadcast(int id, int num) throws RemoteException;
+	public void Write(String name, byte[] bFile) throws RemoteException;
 }
